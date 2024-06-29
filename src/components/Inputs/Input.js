@@ -9,7 +9,7 @@ export default function Input({placeHolder, setValor, contra, setTextChange}) {
     style={styles.Input}
     placeholder={placeHolder}
     value={setValor}
-    placeholderTextColor={'#FFF'}
+    placeholderTextColor={'#707070'}
     secureTextEntry={contra} 
     onChangeText={setTextChange}
     />
@@ -19,12 +19,18 @@ export default function Input({placeHolder, setValor, contra, setTextChange}) {
 
 const styles = StyleSheet.create({
   Input: {
-    backgroundColor:'#A79277',
-    color: "#fff", fontWeight:'800',
+    backgroundColor:'#A7927700',
+    color: "#000", fontWeight:'800',
     width:250,
-    borderRadius:5,
-    padding: 5,
-    marginVertical:10
+    borderRadius:1,
+    paddingTop: 5,
+    paddingBottom: 5,
+    paddingLeft: 10,
+    paddingRight: 10,
+    marginVertical:10,
+    borderStyle: "solid",
+    borderWidth: 2,
+    borderColor: "#000"
   },
 
 });

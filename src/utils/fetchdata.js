@@ -1,5 +1,5 @@
 // fetchData.js
-import * as Constantes from '../utils/constantes'
+const IP = 'http://192.168.2.2'
 
 const fetchData = async (filename, action, form = null) => {
     const OPTIONS = {};
@@ -10,7 +10,7 @@ const fetchData = async (filename, action, form = null) => {
         OPTIONS.method = 'GET';
     }
     try {
-        const PATH = new URL(`${Constantes.IP}/luxurycat/api/services/public/${filename}.php`);
+        const PATH = new URL(`${IP}/luxurycat/api/services/public/${filename}.php`);
         PATH.searchParams.append('action', action);
 
         console.log('Fetching:', PATH.href, OPTIONS);

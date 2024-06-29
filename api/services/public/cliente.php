@@ -22,16 +22,16 @@ if (isset($_GET['action'])) {
     // Se instancia la clase correspondiente.
     $cliente = new UsuarioData;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
-    $result = array('status' => 0, 'session' => 0, 'recaptcha' => 0, 'message' => null, 'error' => null, 'exception' => null, 'username' => null);
+    $result = array('status' => 0, 'session' => 0, 'recaptcha' => 0, 'message' => null, 'error' => null, 'exception' => null, 'username' => null, 'name' => null);
     // Se verifica si existe una sesión iniciada como cliente para realizar las acciones correspondientes.
     if (isset($_SESSION[POST_ID])) {
         $result['session'] = 1;
         // Se compara la acción a realizar cuando un cliente ha iniciado sesión.
         switch ($_GET['action']) {
             case 'getUser':
-                if (isset($_SESSION[POST_CORREO])) {
+                if (isset($_SESSION["usuario_correo"])) {
                     $result['status'] = 1;
-                    $result['username'] = $_SESSION[POST_CORREO];
+                    $result['username'] = $_SESSION["usuario_correo"];
                 } else {
                     $result['error'] = 'Correo de usuario indefinido';
                 }
@@ -115,6 +115,26 @@ if (isset($_GET['action'])) {
                 } elseif (!isset($_POST['condicion'])) {
                     $result['error'] = 'Debe marcar la aceptación de términos y condiciones';
                 } elseif (
+                    !$cliente->setNombre($_POST[POST_NOMBRE]) or
+                    !$cliente->setApellido($_POST[POST_APELLIDO]) or
+                    !$cliente->setUsuario($_POST[POST_USUARIO]) or
+                    !$cliente->setContraseña($_POST[POST_CONTRASEÑA]) or
+                    !$cliente->setCorreo($_POST[POST_CORREO]) or
+                    !$cliente->setEstado($_POST[POST_ESTADO])
+                ) {
+                    $result['error'] = $cliente->getDataError();
+                } elseif ($_POST[POST_CONTRASEÑA] != $_POST[POST_CONFIRMAR_CONTRASEÑA]) {
+                    $result['error'] = 'Contraseñas diferentes';
+                } elseif ($cliente->createRow()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Cuenta registrada correctamente';
+                } else {
+                    $result['error'] = 'Ocurrió un problema al registrar la cuenta';
+                }
+                break;
+            case 'signUpMovil':
+                $_POST = Validator::validateForm($_POST);
+            if (
                     !$cliente->setNombre($_POST[POST_NOMBRE]) or
                     !$cliente->setApellido($_POST[POST_APELLIDO]) or
                     !$cliente->setUsuario($_POST[POST_USUARIO]) or

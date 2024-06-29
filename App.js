@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 // npm install @react-navigation/native-stack
 
 import Sesion from './src/screens/Sesion.js'
+import Navigator from './src/navigation/Navigator.js';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -14,6 +15,7 @@ export default function App() {
         screenOptions={{headerShown: false}}>
 
         <Stack.Screen name="Sesion" component={Sesion} />
+        <Stack.Screen name="Navigator" component={Navigator} />
       </Stack.Navigator>
     </NavigationContainer>
   );

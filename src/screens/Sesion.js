@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, ActivityIndicator, StyleSheet, Alert } from "react-native";
+import fetchData from "../utils/fetchdata";
 import Input from "../components/Inputs/Input";
 import Buttons from "../components/Buttons/Button";
-import fetchData from "../utils/fetchdata"; // Asegúrate de que el path sea correcto
 
 export default function Sesion({ navigation }) {
   const [isContra, setIsContra] = useState(true);
@@ -44,7 +44,7 @@ export default function Sesion({ navigation }) {
     try {
         // Crea un formulario FormData con los datos de usuario y contraseña
         const form = new FormData();
-        form.append("usuario_correo", usuario);
+        form.append("usuario_usuario", usuario);
         form.append("usuario_contraseña", contrasenia);
 
         // Realiza una solicitud para iniciar sesión usando fetchData
@@ -57,7 +57,7 @@ export default function Sesion({ navigation }) {
             setContrasenia("");
             setUsuario("");
             // Navega a la siguiente pantalla o ruta en la aplicación
-            navigation.navigate("TabNavigator");
+            navigation.navigate("Navigator");
         } else {
             // Muestra una alerta en caso de error
             console.log(DATA);
@@ -97,7 +97,7 @@ export default function Sesion({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#EAD8C0",
+    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
   },

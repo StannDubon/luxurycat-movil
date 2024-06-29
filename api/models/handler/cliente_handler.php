@@ -19,14 +19,22 @@ class UsuarioHandler {
                 WHERE usuario_usuario = ?';
         $params = array($user);
         $data = Database::getRow($sql, $params);
-        if (password_verify($password, $data['usuario_contraseña'])) {
-            $this->usuario_id = $data['usuario_id'];
-            $this->usuario_correo = $data['usuario_correo'];
-            return true;
+        if ($data) {
+            if (password_verify($password, $data['usuario_contraseña'])) {
+                $_SESSION['usuario_id'] = $data['usuario_id'];
+                $_SESSION['usuario_correo'] = $data['usuario_correo'];
+                $this->usuario_id = $data['usuario_id'];
+                $this->usuario_estado = $data['usuario_estado'];
+                $this->usuario_usuario = $data['usuario_usuario'];
+                return true;
+            } else {
+                return false;
+            }
         } else {
             return false;
         }
     }
+    
 
     public function checkPassword($password)
     {

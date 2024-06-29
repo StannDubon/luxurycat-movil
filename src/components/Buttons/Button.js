@@ -1,6 +1,5 @@
 
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, ScrollView } from 'react-native';
-import { useState } from 'react';
+import { StyleSheet, Text, TouchableOpacity} from 'react-native';
 export default function Buttons({textoBoton, accionBoton}) {
 
     return(
@@ -16,10 +15,10 @@ const styles = StyleSheet.create({
 
     button: {
         borderWidth: 1,
-        borderColor: "#AF8260",
+        borderColor: "#000",
         width: 200,
         borderRadius: 10,
-        backgroundColor: "#AF8260",
+        backgroundColor: "#000",
         padding: 10,
         marginVertical: 5
     },
