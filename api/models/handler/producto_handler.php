@@ -48,6 +48,16 @@ class ProductoHandler
         return Database::getRows($sql);
     }
 
+    public function readActive()
+    {
+        $sql = 'SELECT p.producto_id, c.categoria_nombre AS categoria, m.marca_nombre AS marca, p.*
+                FROM tb_productos p
+                JOIN tb_categorias c ON p.categoria_id = c.categoria_id
+                JOIN tb_marcas m ON p.marca_id = m.marca_id
+                WHERE producto_estado = 1;';
+        return Database::getRows($sql);
+    }
+
     public function readOne()
     {
         $sql = 'SELECT p.producto_id, c.categoria_nombre AS categoria, m.marca_nombre AS marca, p.*

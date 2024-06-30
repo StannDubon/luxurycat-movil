@@ -23,7 +23,7 @@ const TabNavigator = () => {
           if (route.name === 'Home') {
             iconName = focused ? 'home' : 'home-outline';
           } else if (route.name === 'Productos') {
-            iconName = focused ? 'cafe' : 'cafe-outline';
+            iconName = focused ? 'bag-handle' : 'bag-handle-outline';
           } else if (route.name === 'Carrito') {
             iconName = focused ? 'cart' : 'cart-outline';
           }
@@ -34,17 +34,17 @@ const TabNavigator = () => {
       <Tab.Screen
         name="Home"
         component={Home}
-        options={{ title: 'Inicio' }}
+        options={{ title: '' }}
       />
       <Tab.Screen
         name="Productos"
         component={Productos}
-        options={{ title: 'Productos' }}
+        options={{ title: '' }}
       />
       <Tab.Screen
         name="Carrito"
         component={Carrito}
-        options={{ title: 'Carrito' }}
+        options={{ title: '' }}
       />
     </Tab.Navigator>
     );

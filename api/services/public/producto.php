@@ -1,11 +1,11 @@
 <?php
 // Se incluye la clase del modelo.
-require_once('../../models/data/categoria_data.php');
+require_once('../../models/data/producto_data.php');
 
 // Se comprueba si existe una acción a realizar, de lo contrario se finaliza el script con un mensaje de error.
 if (isset($_GET['action'])) {
     // Se instancia la clase correspondiente.
-    $categoria = new CategoriaData;
+    $producto = new ProductoData;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array('status' => 0, 'message' => null, 'dataset' => null, 'error' => null, 'exception' => null);
     // Se compara la acción a realizar según la petición del controlador.
@@ -14,7 +14,7 @@ if (isset($_GET['action'])) {
         case 'searchRows':
             if (!Validator::validateSearch($_POST['search'])) {
                 $result['error'] = Validator::getSearchError();
-            } elseif ($result['dataset'] = $categoria->searchRows()) {
+            } elseif ($result['dataset'] = $producto->searchRows()) {
                 $result['status'] = 1;
                 $result['message'] = 'Existen ' . count($result['dataset']) . ' coincidencias';
             } else {
@@ -23,18 +23,17 @@ if (isset($_GET['action'])) {
             break;
             // Leer todos
         case 'readAll':
-            if ($result['dataset'] = $categoria->readAll()) {
+            if ($result['dataset'] = $producto->readActive()) {
                 $result['status'] = 1;
                 $result['message'] = 'Mostrando ' . count($result['dataset']) . ' productos';
             } else {
                 $result['error'] = 'No existen productos registrados';
             }
             break;
-            //Leer uno
         case 'readOne':
-            if (!$categoria->setId($_POST['idCategoria'])) {
-                $result['error'] = $categoria->getDataError();
-            } elseif ($result['dataset'] = $categoria->readOne()) {
+            if (!$producto->setId($_POST['idProducto'])) {
+                $result['error'] = $producto->getDataError();
+            } elseif ($result['dataset'] = $producto->readDetail()) {
                 $result['status'] = 1;
             } else {
                 $result['error'] = 'Producto inexistente';

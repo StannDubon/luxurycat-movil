@@ -17,13 +17,15 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "#000",
         width: 200,
-        borderRadius: 10,
+        borderRadius: 8,
         backgroundColor: "#000",
         padding: 10,
         marginVertical: 5
     },
     buttonText: {
         textAlign: 'center',
-        color: "#FFF", fontWeight: '800', textTransform: 'uppercase'
+        color: "#FFF",
+        textTransform: 'uppercase',
+        fontFamily: 'FuturaHeavy'
     }
 });
