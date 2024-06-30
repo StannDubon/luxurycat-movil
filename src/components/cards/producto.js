@@ -38,7 +38,9 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     backgroundColor: "#fff",
-    width: "90%"
+    width: 300,
+    overflow: "hidden",
+    borderRadius: 10
   },
   image: {
     width: 80,

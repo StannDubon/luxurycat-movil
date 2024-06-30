@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Alert, Image, FlatList } from "react-native";
+import { View, Text, StyleSheet, Alert, ScrollView , FlatList } from "react-native";
 import ProductoCard from '../components/cards/producto';
 import * as constantes from '../utils/constantes';
 import fetchData from "../utils/fetchdata";
@@ -29,21 +29,28 @@ export default function Home({ navigation }) {
   }, []);
 
 
-  return <View style={styles.container}>
-    <Text style={styles.MainText}>Todos Nuestros Productos</Text>
-          <FlatList style={styles.flatlist} data={dataProductos}
-          keyExtractor={(item) => item.producto_id}
-          renderItem={({ item }) => ( // Util izamos destructuración para obtener directamente el item
-
-            <ProductoCard ip={constantes.IP}
+  return (
+    <View style={styles.container}>
+      <Text style={styles.MainText}>Todos Nuestros Productos</Text>
+      <ScrollView contentContainerStyle={styles.scrollViewContent}>
+        <FlatList
+          style={styles.flatlist}
+          data={dataProductos}
+          keyExtractor={(item) => item.producto_id.toString()}
+          renderItem={({ item }) => (
+            <ProductoCard
+              ip={constantes.IP}
               imagenProducto={item.producto_imagen}
               idProducto={item.producto_id}
               nombreProducto={item.producto_nombre}
               categoriaProducto={item.categoria}
               precioProducto={item.producto_precio}
             />
-          )}/>
-  </View>;
+          )}
+        />
+      </ScrollView>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -57,10 +64,11 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontFamily: 'FuturaMedium',
     marginTop: 30,
-    marginBottom: 60
+    marginBottom: 40
   },
-  flatlist: {
-    flex: 1,
-    width: "100%",
-  }
+  scrollViewContent: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
 });
