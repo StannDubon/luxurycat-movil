@@ -11,7 +11,6 @@ export default function Home({ navigation }) {
   const getProductos = async () => {
     try {
       const DATA = await fetchData("producto", "readAll");
-      console.log(DATA)
       if (DATA.status) {
         setDataProductos(DATA.dataset);
       } else {
@@ -32,25 +31,26 @@ export default function Home({ navigation }) {
   return (
     <View style={styles.container}>
       <Text style={styles.MainText}>Todos Nuestros Productos</Text>
-      <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        <FlatList
-          style={styles.flatlist}
-          data={dataProductos}
-          keyExtractor={(item) => item.producto_id.toString()}
-          renderItem={({ item }) => (
-            <ProductoCard
-              ip={constantes.IP}
-              imagenProducto={item.producto_imagen}
-              idProducto={item.producto_id}
-              nombreProducto={item.producto_nombre}
-              categoriaProducto={item.categoria}
-              precioProducto={item.producto_precio}
-            />
-          )}
-        />
-      </ScrollView>
+      <FlatList
+        style={styles.flatlist}
+        contentContainerStyle={styles.scrollViewContent}
+        data={dataProductos}
+        keyExtractor={(item) => item.producto_id.toString()}
+        renderItem={({ item }) => (
+          <ProductoCard
+            ip={constantes.IP}
+            imagenProducto={item.producto_imagen}
+            idProducto={item.producto_id}
+            nombreProducto={item.producto_nombre}
+            categoriaProducto={item.categoria}
+            precioProducto={item.producto_precio}
+            navigation={navigation}
+          />
+        )}
+      />
     </View>
   );
+  
 }
 
 const styles = StyleSheet.create({
@@ -66,9 +66,9 @@ const styles = StyleSheet.create({
     marginTop: 30,
     marginBottom: 40
   },
+  
   scrollViewContent: {
     flexGrow: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: 'top',
   },
 });

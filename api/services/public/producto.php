@@ -33,7 +33,7 @@ if (isset($_GET['action'])) {
         case 'readOne':
             if (!$producto->setId($_POST['idProducto'])) {
                 $result['error'] = $producto->getDataError();
-            } elseif ($result['dataset'] = $producto->readDetail()) {
+            } elseif ($result['dataset'] = $producto->readOneActive()) {
                 $result['status'] = 1;
             } else {
                 $result['error'] = 'Producto inexistente';

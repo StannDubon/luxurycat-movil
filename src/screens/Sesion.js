@@ -21,9 +21,15 @@ export default function Sesion({ navigation }) {
   const validarSesion = async () => {
     try {
       const DATA = await fetchData("cliente", "getUser");
-      if (DATA.status === 1) {
-        cerrarSesion();
-        console.log("Se eliminó la sesión");
+      if (DATA.session) {
+        // cerrarSesion();
+        // console.log("Se eliminó la sesión");
+
+        setContrasenia("");
+        setUsuario("");
+        // Navega a la siguiente pantalla o ruta en la aplicación
+        navigation.replace("Navigator");
+
       } else {
         console.log("No hay sesión activa");
         return;
@@ -65,7 +71,7 @@ export default function Sesion({ navigation }) {
         setContrasenia("");
         setUsuario("");
         // Navega a la siguiente pantalla o ruta en la aplicación
-        navigation.navigate("Navigator");
+        navigation.replace("Navigator");
       } else {
         // Muestra una alerta en caso de error
         console.log(DATA);
