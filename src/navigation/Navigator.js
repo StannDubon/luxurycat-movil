@@ -6,6 +6,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import Productos from '../screens/Productos';
 import Home from '../screens/Home';
 import Carrito from '../screens/Carrito';
+import Perfil from '../screens/Perfil';
 
 const Tab = createBottomTabNavigator();
 
@@ -26,6 +27,8 @@ const TabNavigator = () => {
             iconName = focused ? 'bag-handle' : 'bag-handle-outline';
           } else if (route.name === 'Carrito') {
             iconName = focused ? 'cart' : 'cart-outline';
+          } else if (route.name === 'Perfil') {
+            iconName = focused ? 'person' : 'person-outline';
           }
           return <Ionicons name={iconName} color={color} size={size} />;
         },
@@ -44,6 +47,11 @@ const TabNavigator = () => {
       <Tab.Screen
         name="Carrito"
         component={Carrito}
+        options={{ title: '' }}
+      />
+      <Tab.Screen
+        name="Perfil"
+        component={Perfil}
         options={{ title: '' }}
       />
     </Tab.Navigator>

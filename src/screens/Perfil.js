@@ -1,8 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Alert, Image } from 'react-native';
+import fetchData from "../utils/fetchdata";
 import Buttons from '../components/Buttons/Button';
 
 export default function Home({ navigation }) {
+
+  const handleLogout = async () => {
+    try {
+      const DATA = await fetchData("cliente", "logOut");
+      if (DATA.status) {
+        navigation.navigate('Sesion');
+      } else {
+        Alert.alert('Error', DATA.error);
+      }
+    } catch (error) {
+      Alert.alert('Error', 'Ocurrió un error al cerrar la sesión');
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -11,6 +25,7 @@ export default function Home({ navigation }) {
       </Text>
       <Buttons
         textoBoton='Cerrar Sesión'
+        accionBoton={handleLogout}
       />
 
       <Buttons
@@ -26,7 +41,7 @@ export default function Home({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center'
   },

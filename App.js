@@ -5,6 +5,8 @@ import * as Font from 'expo-font'; // Asegúrate de importar expo-font
 
 import Sesion from './src/screens/Sesion';
 import Navigator from './src/navigation/Navigator';
+import Categoria from './src/screens/Categoria';
+import Info from './src/screens/ProductoInfo';
 
 const FuturaFont = {
   FuturaMedium: require('./src/fonts/FuturaLTPaneuropeanMedium.ttf'),
@@ -36,6 +38,8 @@ export default function App() {
 
         <Stack.Screen name="Sesion" component={Sesion} />
         <Stack.Screen name="Navigator" component={Navigator} />
+        <Stack.Screen name="Info" component={Info} />
+        <Stack.Screen name="Categoria" component={Categoria} />
       </Stack.Navigator>
     </NavigationContainer>
   );

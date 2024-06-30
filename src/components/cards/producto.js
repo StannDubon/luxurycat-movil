@@ -10,9 +10,10 @@ export default function producto({
   nombreProducto,
   categoriaProducto,
   precioProducto,
+  navigation
 }) {
   return (
-    <TouchableOpacity style={[styles.card, styles.horizontalCard]}>
+    <TouchableOpacity style={[styles.card, styles.horizontalCard]} onPress={() => navigation.navigate('Info', { idProducto })}>
       <View style={styles.imageContainer}>
         <Image
           source={{
@@ -22,12 +23,10 @@ export default function producto({
           resizeMode="contain"
         />
       </View>
-      <View style={styles.horizontalTextContainer}>
+      <View style={styles.infoTextContainer}>
         <Text style={styles.textTitle}>{nombreProducto}</Text>
         <Text style={styles.text}>{categoriaProducto}</Text>
-        <Text style={[styles.textTitle, styles.horizontalPrecio]}>
-          Precio: <Text style={styles.textDentro}>${precioProducto}</Text>
-        </Text>
+        <Text style={styles.price}>${precioProducto}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -40,7 +39,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     width: 300,
     overflow: "hidden",
-    borderRadius: 10
+    borderRadius: 10,
+    marginBottom: 10,
+    position: "relative"
   },
   image: {
     width: 80,
@@ -53,12 +54,18 @@ const styles = StyleSheet.create({
   textTitle: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#555",
+    color: "#555"
   },
-  textDentro: {
-    color: "#007bff", // Color azul para el precio
+  price: {
+    position: "absolute",
+    color: "#52C248",
+    right: 8,
+    top: 5
   },
-  horizontalPrecio: {
-    marginTop: 5,
-  },
+  infoTextContainer:{
+    flex: 1,
+    justifyContent: "center",
+    gap: 5,
+    marginLeft: 5
+  }
 });
