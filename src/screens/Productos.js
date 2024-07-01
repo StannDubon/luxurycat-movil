@@ -52,7 +52,7 @@ export default function Home({ navigation }) {
             imagenProducto={item.producto_imagen}
             idProducto={item.producto_id}
             nombreProducto={item.producto_nombre}
-            categoriaProducto={item.categoria}
+            subTitle={item.categoria}
             precioProducto={item.producto_precio}
             navigation={navigation}
           />

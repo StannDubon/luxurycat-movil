@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Alert , FlatList } from "react-native";
-import ProductoCard from '../components/cards/productoOnCategoria';
+import Producto from '../components/cards/producto';
 import * as constantes from '../utils/constantes';
 import fetchData from "../utils/fetchdata";
 import { useNavigation } from "@react-navigation/native";
@@ -61,12 +61,12 @@ export default function CategoriaScreen({ route }) {
         data={dataProductos}
         keyExtractor={(item) => item.producto_id.toString()}
         renderItem={({ item }) => (
-          <ProductoCard
+          <Producto
             ip={constantes.IP}
             imagenProducto={item.producto_imagen}
             idProducto={item.producto_id}
             nombreProducto={item.producto_nombre}
-            descripcionProducto={item.producto_descripcion}
+            subTitle={item.producto_descripcion}
             precioProducto={item.producto_precio}
             navigation={navigation}
           />

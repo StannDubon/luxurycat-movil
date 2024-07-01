@@ -8,7 +8,7 @@ export default function producto({
   imagenProducto,
   idProducto,
   nombreProducto,
-  categoriaProducto,
+  subTitle,
   precioProducto,
   navigation
 }) {
@@ -25,7 +25,7 @@ export default function producto({
       </View>
       <View style={styles.infoTextContainer}>
         <Text style={styles.textTitle}>{nombreProducto}</Text>
-        <Text style={styles.text}>{categoriaProducto}</Text>
+        <Text style={styles.text}>{subTitle}</Text>
         <Text style={styles.price}>${precioProducto}</Text>
       </View>
     </TouchableOpacity>
@@ -50,22 +50,23 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     color: "#333",
+    fontFamily: "FuturaMedium",
   },
   textTitle: {
     fontSize: 18,
-    fontWeight: "bold",
-    color: "#555"
+    color: "#555",
+    fontFamily: "FuturaHeavy",
   },
   price: {
     position: "absolute",
     color: "#52C248",
+    fontFamily: "FuturaHeavy",
     right: 8,
     top: 5
   },
   infoTextContainer:{
     flex: 1,
     justifyContent: "center",
-    gap: 5,
-    marginLeft: 5
+    marginLeft: 10
   }
 });
