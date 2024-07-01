@@ -1,0 +1,156 @@
+.custom-card-main{
+    color: rgb(41, 41, 41);
+    height: 400px;
+    width: 300px;
+}
+
+.custom-card-main img{
+    height: 400px;
+    width: 300px;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+.card_hover_test{
+    background-color: rgba(19, 19, 19, 0.664);
+    /*background-color: rgb(19, 19, 19);*/
+    height: 100%;
+    width: 100%;
+    transition: background-color 0.4s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+.card_hover_test:hover{
+    /*background-color: rgba(19, 19, 19);*/
+    background-color: rgba(19, 19, 19);
+}
+
+.animated-text {
+    opacity: 1;
+    color: white;
+    transition: opacity 0.3s ease;
+}
+
+.card_hover_test:hover .animated-text {
+    opacity: 1;
+}
+
+/*Establecer la dsitribucion de las cartitas*/
+
+.custom-card-gucci-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding-left: 300px;
+    padding-right: 300px;
+}
+
+.custom-gucci-card{
+    margin: 10px;
+}
+
+/*------------------> Responsive*/
+@media (max-width: 1680px) {
+
+    .custom-card-gucci-container{
+        padding-left: 200px;
+        padding-right: 200px;
+    }
+
+}
+
+@media (max-width: 1250px) {
+
+    .custom-card-main {
+        height: 300px;
+        width: 300px;
+    }
+    
+    .custom-card-main img {
+        height: 300px;
+        width: 300px;
+    }
+    
+    .card_hover_test{
+        background-color: rgba(0, 0, 0, 0.733);
+    }
+    
+    .animated-text {
+        opacity: 1;
+        transition: opacity 0.3s ease;
+    }
+    
+    .card_hover_test .animated-text {
+        opacity: 1;
+    }
+
+    .custom-card-gucci-container{
+        padding: 0;
+    }
+
+}
+
+@media (max-width: 930px) {
+
+    .custom-card-main {
+        height: 200px;
+        width: 200px;
+    }
+    
+    .custom-card-main img {
+        height: 200px;
+        width: 200px;
+    }
+
+    .custom-card-gucci-container{
+        padding: 0;
+    }
+    
+}
+
+@media (max-width: 600px) {
+
+    .custom-card-main {
+        height: 200px;
+        width: 400px;
+        border-radius: 0px;
+    }
+    
+    .card_hover_test {
+        border-radius: 0px;
+    }
+
+    .custom-card-main img {
+        height: 200px;
+        width: 400px;
+        border-radius: 0px;
+    }
+
+    .custom-gucci-card{
+        margin: 0px;
+    }
+
+    .custom-card-gucci-container{
+        padding: 0;
+    }
+
+    .card_hover_test:hover{
+        background-color: rgba(19, 19, 19, 0.664)
+    }
+
+}
+
+/*Welcome Text*/
+
+.welcome-text{
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-left: 15%;
+    margin-right: 15%;
+}

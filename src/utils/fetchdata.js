@@ -10,7 +10,7 @@ const fetchData = async (filename, action, form = null) => {
         OPTIONS.method = 'GET';
     }
     try {
-        const PATH = new URL(`${constantes.IP}/luxurycat/api/services/public/${filename}.php`);
+        const PATH = new URL(`${constantes.IP}/luxurycat/luxurycat-web/API/services/public/${filename}.php`);
         PATH.searchParams.append('action', action);
 
         const RESPONSE = await fetch(PATH.href, OPTIONS);

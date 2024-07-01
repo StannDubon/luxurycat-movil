@@ -43,7 +43,7 @@ export default function ProductoInfoScreen({ route }) {
     <View style={styles.container}>
       <Text style={styles.regresar} onPress={() => {navigation.goBack();}}>{"< Regresar"}</Text>
       <View style={styles.productoContainer}>
-        <Image source={{ uri: `${constantes.IP}/luxurycat/api/images/productos/${imagen}` }} style={styles.imagenProducto} />
+        <Image source={{ uri: `${constantes.IP}/luxurycat/luxurycat-web/API/images/productos/${imagen}` }} style={styles.imagenProducto} />
         <Text style={styles.nombreProducto}>{nombre}</Text>
         <Text style={styles.descripcionProducto}>{descripcion}</Text>
         <Text style={styles.precioProducto}>Precio: ${precio}</Text>

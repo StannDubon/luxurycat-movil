@@ -1,0 +1,26 @@
+@font-face {
+  font-family: "Louis George Cafe";
+  src: url("../fonts/Louis George Cafe Bold.ttf") format("truetype");
+}
+
+.louis-george-bold {
+  font-family: "Louis George Cafe", sans-serif;
+}
+
+@font-face {
+  font-family: "LTSoul-bold";
+  src: url("../fonts/LTSoul-Bold.otf") format("truetype");
+}
+
+.ltsoul-bold {
+  font-family: "LTSoul-bold", sans-serif;
+}
+
+@font-face {
+  font-family: "LTSoul";
+  src: url("../fonts/LTSoul-Regular.otf") format("truetype");
+}
+
+.ltsoul-regular {
+  font-family: "LTSoul", sans-serif;
+}

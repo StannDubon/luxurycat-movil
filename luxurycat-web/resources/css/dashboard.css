@@ -1,0 +1,71 @@
+.custom-card {
+  border: 1px solid #b6b6b6;
+  border-radius: 20px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.custom-card:hover {
+  background-color: black;
+  color: white;
+  border-radius: 20px;
+}
+
+.main-dashboard-menu {
+  height: 100%;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+#dashboard {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+  margin: 0;
+  padding: 0;
+}
+
+.main-dashboard-menu {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  height: 60%;
+}
+
+.main-welcome-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30%;
+}
+
+.main-dashboard-menu a {
+  text-decoration: none;
+  color: black;
+}
+
+@media only screen and (max-width: 600px) {
+  .main-dashboard-menu {
+    height: 80%;
+  }
+  
+  .main-welcome-bar {
+    height: 20%;
+  }
+
+  html, body {
+    height: auto;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  
+}

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../../resources/css/fonts.css" />
+    <link rel="stylesheet" href="../../resources/css/private-sidebar.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+</head>
+
+
+<body id="categorias">
+    <header></header>
+    <main>
+        <div class="row m-5">
+            <div class="col-md-3 col-sm-12 louis-george-bold fs-3"> Categorías </div>
+            <!-- Busqueda -->
+            <form id="searchForm" class="col-md-5 col-sm-12">
+                <input class="form-control me-2 mb-2" type="search" placeholder="Buscar" name="search"
+                    aria-label="Buscar" id="searchInput" />
+            </form>
+            <!-- Botón Agregar -->
+            <div class="col-md-2 col-sm-12"> <button class="btn btn-dark w-100" onclick="openCreate()"
+                    data-bs-target="#exampleModal">Agregar</button> </div>
+        </div>
+        <div class="table-responsive-md">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="col-md-1">#</th>
+                        <th class="col-md-3">Nombre de la categoría</th>
+                        <th class="col-md-3">Descripción</th>
+                        <th class="col-md-2">Estado</th>
+                        <th class="col-md-1">Opciones</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tableBody">
+
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Modal -->
+    <div class="modal fade" id="saveModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width: 70%">
+            <div class="modal-content">
+                <form id="saveForm" action="">
+                    <input type="hidden" id="categoria_id" name="categoria_id" />
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTitle">Categoría</h5> <button type="button"
+                            class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+
+                            <div class="mb-3 pr-3 pl-3">
+                                <label class="form-label">Nombre categoría</label>
+                                <input type="text" class="form-control form-control-lg" id="categoria_nombre"
+                                    name="categoria_nombre">
+                            </div>
+
+
+                            <div class="pr-3 pl-3">
+                                <label class="form-label">Descripción</label>
+                                <textarea type="text" class="form-control form-control-lg" id="categoria_descripcion"
+                                    name="categoria_descripcion" rows="3"></textarea>
+                            </div>
+
+                            <div
+                                class="row mb-2 mt-3 col-md-12 column-gap-2 d-flex align-items-center justify-content-center">
+                                <div
+                                    class="col-md-4 col-sm-12 column-gap-2 d-flex align-items-center justify-content-center">
+
+                                    <input class="form-check-input" type="radio" name="categoria_estado" id="activo"
+                                        value="1">
+                                    <label class="form-check-label" for="activo"> Activo </label>
+
+                                </div>
+
+                                <div
+                                    class="col-md-4 col-sm-12 column-gap-2 d-flex align-items-center justify-content-center">
+
+                                    <input class="form-check-input" type="radio" name="categoria_estado" id="inactivo"
+                                        value="0">
+                                    <label class="form-check-label" for="inactivo">Inactivo</label>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-dark">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+
+        </script>
+    <!-- Iconos -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <!-- Controladores -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- Controladores -->
+    <script src="../../controllers/utils/components.js"></script>
+    <script src="../../controllers/utils/admin.js"></script>
+    <script src="../../controllers/admin/categoria.js"></script>
+</body>
+
+</html>
