@@ -2,12 +2,12 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, ImageBackground } from 'react-native';
 
-export default function Buttons({ texto, id, navigation }) {
+export default function Buttons({ texto, idCategoria, navigation }) {
     return (
         <>
             <TouchableOpacity
                 style={[styles.button]}
-                onPress={() => navigation.navigate('Categoria', { id })}
+                onPress={() => navigation.navigate('Categoria', { idCategoria })}
             >
                 <Text style={styles.buttonText}>{texto}</Text>
             </TouchableOpacity>

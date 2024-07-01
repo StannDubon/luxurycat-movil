@@ -38,7 +38,16 @@ if (isset($_GET['action'])) {
             } else {
                 $result['error'] = 'Producto inexistente';
             }
-            break;      
+            break;     
+        case 'readByCategory':
+            if (!$producto->setCategoriaId($_POST['idCategoria'])) {
+                $result['error'] = $producto->getDataError();
+            } elseif ($result['dataset'] = $producto->readByCategory()) {
+                $result['status'] = 1;
+            } else {
+                $result['error'] = 'Producto inexistente';
+            }
+            break;   
         default:
             $result['error'] = 'Acción no disponible';
     }

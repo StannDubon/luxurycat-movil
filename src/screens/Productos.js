@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Alert, ScrollView , FlatList } from "react-native";
+import { View, Text, StyleSheet, Alert , FlatList } from "react-native";
 import ProductoCard from '../components/cards/producto';
 import * as constantes from '../utils/constantes';
 import fetchData from "../utils/fetchdata";

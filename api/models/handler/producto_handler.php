@@ -75,9 +75,20 @@ class ProductoHandler
                 FROM tb_productos p
                 JOIN tb_categorias c ON p.categoria_id = c.categoria_id
                 JOIN tb_marcas m ON p.marca_id = m.marca_id
-                WHERE p.producto_id = ?;';
+                WHERE p.producto_id = ? AND p.producto_estado = 1;';
         $params = array($this->id);
         return Database::getRow($sql, $params);
+    }
+
+    public function readByCategory()
+    {
+        $sql = 'SELECT p.producto_id, c.categoria_nombre AS categoria, m.marca_nombre AS marca, p.*
+                FROM tb_productos p
+                JOIN tb_categorias c ON p.categoria_id = c.categoria_id
+                JOIN tb_marcas m ON p.marca_id = m.marca_id
+                WHERE p.categoria_id = ? AND p.producto_estado = 1;';
+        $params = array($this->categoria_id);
+        return Database::getRows($sql, $params);
     }
 
     public function updateRow()

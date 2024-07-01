@@ -30,6 +30,15 @@ if (isset($_GET['action'])) {
                 $result['error'] = 'No existen productos registrados';
             }
             break;
+            // Leer todos
+        case 'readCategoryWithProduct':
+            if ($result['dataset'] = $categoria->readCategoryWithProduct()) {
+                $result['status'] = 1;
+                $result['message'] = 'Mostrando ' . count($result['dataset']) . ' productos';
+            } else {
+                $result['error'] = 'No existen productos registrados';
+            }
+            break;
             //Leer uno
         case 'readOne':
             if (!$categoria->setId($_POST['idCategoria'])) {

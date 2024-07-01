@@ -34,6 +34,14 @@ class CategoriaHandler
         return Database::getRows($sql);
     }
 
+    public function readCategoryWithProduct()
+    {
+        $sql = 'SELECT DISTINCT c.*
+                FROM tb_categorias c
+                JOIN tb_productos p ON c.categoria_id = p.categoria_id;';
+        return Database::getRows($sql);
+    }
+
     public function readOne()
     {
         $sql = 'SELECT categoria_id, categoria_nombre, categoria_descripcion, categoria_estado

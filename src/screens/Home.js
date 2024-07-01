@@ -11,7 +11,6 @@ import {
   FlatList,
 } from "react-native";
 import fetchData from "../utils/fetchdata";
-import Input from "../components/Inputs/Input";
 import BgButton from "../components/Buttons/BgButton";
 
 export default function Sesion({ navigation }) {
@@ -19,7 +18,7 @@ export default function Sesion({ navigation }) {
 
   const getCategorias = async () => {
     try {
-      const DATA = await fetchData("categoria", "readAll");
+      const DATA = await fetchData("categoria", "readCategoryWithProduct");
       if (DATA.status) {
         setDataCategorias(DATA.dataset);
       } else {
@@ -62,7 +61,7 @@ export default function Sesion({ navigation }) {
           renderItem={({ item }) => (
             <BgButton
               texto={item.categoria_nombre}
-              id={item.categoria_id}
+              idCategoria={item.categoria_id}
               navigation={navigation}
             />
           )}

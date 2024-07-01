@@ -1,30 +1,41 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Image, StyleSheet} from "react-native";
-import fetchData from "../utils/fetchdata";
+import { View, Text, StyleSheet, Alert , FlatList } from "react-native";
+import ProductoCard from '../components/cards/productoOnCategoria';
 import * as constantes from '../utils/constantes';
+import fetchData from "../utils/fetchdata";
 import { useNavigation } from "@react-navigation/native";
 
-export default function ProductoInfoScreen({ route }) {
-  const { idProducto } = route.params;
-  const [descripcion, setDescripcion] = useState("");
+export default function CategoriaScreen({ route }) {
+  const { idCategoria } = route.params;
+  const [dataProductos, setDataProductos] = useState([])
   const [nombre, setNombre] = useState("");
-  const [precio, setPrecio] = useState("");
-  const [imagen, setImagen] = useState("");
-  const [cantidad, setCantidad] = useState("");
   const navigation = useNavigation();
 
   const getData = async () => {
     try {
       const form = new FormData();
-      form.append("idProducto", idProducto);
-      const DATA = await fetchData("producto", "readOne", form);
+      form.append("idCategoria", idCategoria);
+      const DATA = await fetchData("categoria", "readOne", form);
       if (DATA.status) {
-        const producto = DATA.dataset;
-        setDescripcion(producto.producto_descripcion);
-        setNombre(producto.producto_nombre);
-        setPrecio(producto.producto_precio);
-        setImagen(producto.producto_imagen);
-        setCantidad(producto.producto_cantidad);
+        const categoria = DATA.dataset;
+        setNombre(categoria.categoria_nombre);
+      } else {
+        console.log("Data en el ELSE error productos", DATA);
+        Alert.alert("Error productos", DATA.error);
+      }
+    } catch (error) {
+      console.error(error, "Error desde Catch");
+      Alert.alert("Error", "Ocurrió un error al listar los productos");
+    }
+  };
+
+  const getProductos = async () => {
+    try {
+      const form = new FormData();
+      form.append("idCategoria", idCategoria);
+      const DATA = await fetchData("producto", "readByCategory", form);
+      if (DATA.status) {
+        setDataProductos(DATA.dataset);
       } else {
         console.log("Data en el ELSE error productos", DATA);
         Alert.alert("Error productos", DATA.error);
@@ -37,59 +48,59 @@ export default function ProductoInfoScreen({ route }) {
 
   useEffect(() => {
     getData();
+    getProductos();
   }, []);
 
   return (
     <View style={styles.container}>
       <Text style={styles.regresar} onPress={() => {navigation.goBack();}}>{"< Regresar"}</Text>
-      <View style={styles.productoContainer}>
-        <Image source={{ uri: `${constantes.IP}/luxurycat/api/images/productos/${imagen}` }} style={styles.imagenProducto} />
-        <Text style={styles.nombreProducto}>{nombre}</Text>
-        <Text style={styles.descripcionProducto}>{descripcion}</Text>
-        <Text style={styles.precioProducto}>Precio: ${precio}</Text>
-        <Text style={styles.cantidadProducto}>Cantidad disponible: {cantidad}</Text>
-      </View>
+      <Text style={styles.MainText}>{nombre}</Text>
+      <FlatList
+        style={styles.flatlist}
+        contentContainerStyle={styles.scrollViewContent}
+        data={dataProductos}
+        keyExtractor={(item) => item.producto_id.toString()}
+        renderItem={({ item }) => (
+          <ProductoCard
+            ip={constantes.IP}
+            imagenProducto={item.producto_imagen}
+            idProducto={item.producto_id}
+            nombreProducto={item.producto_nombre}
+            descripcionProducto={item.producto_descripcion}
+            precioProducto={item.producto_precio}
+            navigation={navigation}
+          />
+        )}
+      />
     </View>
   );
 };
 
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      padding: 20,
-      backgroundColor: "#ffffff",
-    },
-    regresar: {
-      fontSize: 16,
-      marginBottom: 40,
-      color: "#007bff", // color azul
-    },
-    productoContainer: {
-      alignItems: "center",
-    },
-    imagenProducto: {
-      width: 200,
-      height: 200,
-      marginBottom: 10,
-      borderRadius: 10,
-    },
-    nombreProducto: {
-      fontSize: 24,
-      fontWeight: "bold",
-      marginBottom: 10,
-    },
-    descripcionProducto: {
-      fontSize: 16,
-      marginBottom: 10,
-      textAlign: "center",
-    },
-    precioProducto: {
-      fontSize: 18,
-      marginBottom: 10,
-    },
-    cantidadProducto: {
-      fontSize: 16,
-      marginBottom: 10,
-    },
-  });
+  container: {
+    flex: 1,
+    backgroundColor: "#f5f5f5",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  regresar: {
+    fontSize: 16,
+    marginBottom: 5,
+    marginTop: 20,
+    marginLeft: 40,
+    color: "#007bff", // color azul
+    width: "100%"
+  },
+  MainText: {
+    fontSize: 30,
+    fontFamily: 'FuturaMedium',
+    marginTop: 5,
+    marginBottom: 40
+  },
+  
+  scrollViewContent: {
+    flexGrow: 1,
+    justifyContent: 'top',
+  },
+});

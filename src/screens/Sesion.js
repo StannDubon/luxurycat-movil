@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { TouchableOpacity} from 'react-native';
 import {
   View,
   Text,
@@ -7,7 +8,7 @@ import {
   Alert,
   ImageBackground,
   Image,
-  StatusBar
+  StatusBar,
 } from "react-native";
 import fetchData from "../utils/fetchdata";
 import Input from "../components/Inputs/Input";
@@ -29,7 +30,6 @@ export default function Sesion({ navigation }) {
         setUsuario("");
         // Navega a la siguiente pantalla o ruta en la aplicación
         navigation.replace("Navigator");
-
       } else {
         console.log("No hay sesión activa");
         return;
@@ -84,6 +84,10 @@ export default function Sesion({ navigation }) {
     }
   };
 
+  const decirhola = async () => {
+    console.log("hola");
+  };
+
   useEffect(() => {
     validarSesion();
   }, []);
@@ -93,18 +97,17 @@ export default function Sesion({ navigation }) {
       <StatusBar barStyle="light-content" backgroundColor="#000000" />
       <>
         <ImageBackground
-          source={require('../../src/img/wallpaper1.png')}
-          style={styles.decorator}>
-                  <Image
-                    source={require('../../assets/logo.png')}
-                    style={styles.image}
-                    resizeMode="contain"
-                  />
+          source={require("../../src/img/wallpaper1.png")}
+          style={styles.decorator}
+        >
+          <Image
+            source={require("../../assets/logo.png")}
+            style={styles.image}
+            resizeMode="contain"
+          />
         </ImageBackground>
-        
-        <View
-        style={styles.mainContainer}>
 
+        <View style={styles.mainContainer}>
           <Text style={styles.LargeText}>Bienvenido!</Text>
 
           <Input
@@ -118,8 +121,13 @@ export default function Sesion({ navigation }) {
             setTextChange={setContrasenia}
             contra={isContra}
           />
-          <Text style={styles.SmallText}>¿Olvidaste tu contraseña?</Text>
+          <TouchableOpacity onPress={decirhola}>
+            <Text style={styles.buttonText}>¿Olvidaste tu contraseña?</Text>
+          </TouchableOpacity>
           <Buttons textoBoton="Iniciar Sesión" accionBoton={handlerLogin} />
+          <TouchableOpacity style={styles.textPositioner} onPress={decirhola}>
+            <Text style={styles.buttonText}>¿No tienes cuenta? Registrate</Text>
+          </TouchableOpacity>
         </View>
       </>
     </View>
@@ -130,34 +138,38 @@ const styles = StyleSheet.create({
   decorator: {
     height: 300,
     width: "100%",
-    position: 'relative',
+    position: "relative",
   },
   image: {
     width: 200,
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
+    position: "absolute",
+    top: "50%",
+    left: "50%",
     transform: [{ translateX: -100 }, { translateY: -100 }],
   },
 
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
+    backgroundColor: "#f5f5f5",
+    alignItems: "center"
   },
 
-  LargeText:{
+  LargeText: {
     fontSize: 35,
-    fontFamily: 'FuturaMedium',
+    fontFamily: "FuturaMedium",
     marginTop: 30,
-    marginBottom: 60
+    marginBottom: 60,
   },
 
-  SmallText:{
-    fontFamily: 'FuturaMedium',
-    marginBottom: 10,
-    fontSize: 17
+  textPositioner: {
+    marginTop: 140
   },
+
+  buttonText: {
+    fontFamily: 'FuturaMedium',
+    marginBottom: 20,
+    fontSize: 20
+},
 
   texto: {
     color: "#322C2B",
@@ -171,12 +183,12 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 
-  mainContainer:{
+  mainContainer: {
     flex: 1,
     width: "100%",
     alignItems: "center",
     backgroundColor: "#F8F8F8",
     marginTop: -90,
-    borderTopLeftRadius: 60
-  }
+    borderTopLeftRadius: 60,
+  },
 });
