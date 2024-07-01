@@ -1,12 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Alert , FlatList } from "react-native";
+import { View, Text, StyleSheet, Alert , FlatList, RefreshControl } from "react-native";
 import ProductoCard from '../components/cards/producto';
 import * as constantes from '../utils/constantes';
 import fetchData from "../utils/fetchdata";
 
 export default function Home({ navigation }) {
 
-  const [dataProductos, setDataProductos] = useState([])
+  const [dataProductos, setDataProductos] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    // Simulando una recarga de datos
+    setTimeout(() => {
+      getProductos();
+      setRefreshing(false);
+    }, 200); // Tiempo de espera para la recarga
+  };
 
   const getProductos = async () => {
     try {
@@ -47,6 +57,9 @@ export default function Home({ navigation }) {
             navigation={navigation}
           />
         )}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
       />
     </View>
   );

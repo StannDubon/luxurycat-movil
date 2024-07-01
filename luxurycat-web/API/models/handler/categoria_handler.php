@@ -38,7 +38,8 @@ class CategoriaHandler
     {
         $sql = 'SELECT DISTINCT c.*
                 FROM tb_categorias c
-                JOIN tb_productos p ON c.categoria_id = p.categoria_id;';
+                JOIN tb_productos p ON c.categoria_id = p.categoria_id
+                WHERE c.categoria_estado = 1;';
         return Database::getRows($sql);
     }
 

@@ -84,6 +84,10 @@ export default function Sesion({ navigation }) {
     }
   };
 
+  const navigateRegistrar = async () => {
+    navigation.replace("Registro")
+  };
+
   const decirhola = async () => {
     console.log("hola");
   };
@@ -125,7 +129,7 @@ export default function Sesion({ navigation }) {
             <Text style={styles.buttonText}>¿Olvidaste tu contraseña?</Text>
           </TouchableOpacity>
           <Buttons textoBoton="Iniciar Sesión" accionBoton={handlerLogin} />
-          <TouchableOpacity style={styles.textPositioner} onPress={decirhola}>
+          <TouchableOpacity style={styles.textPositioner} onPress={navigateRegistrar}>
             <Text style={styles.buttonText}>¿No tienes cuenta? Registrate</Text>
           </TouchableOpacity>
         </View>

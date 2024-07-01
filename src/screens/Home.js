@@ -9,12 +9,14 @@ import {
   Image,
   StatusBar,
   FlatList,
+  RefreshControl
 } from "react-native";
 import fetchData from "../utils/fetchdata";
 import BgButton from "../components/Buttons/BgButton";
 
 export default function Sesion({ navigation }) {
   const [dataCategorias, setDataCategorias] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
 
   const getCategorias = async () => {
     try {
@@ -29,6 +31,15 @@ export default function Sesion({ navigation }) {
       console.error(error, "Error desde Catch");
       Alert.alert("Error", "Ocurrió un error al listar los productos");
     }
+  };
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    // Simulando una recarga de datos
+    setTimeout(() => {
+      getCategorias();
+      setRefreshing(false);
+    }, 200); // Tiempo de espera para la recarga
   };
 
   useEffect(() => {
@@ -65,6 +76,9 @@ export default function Sesion({ navigation }) {
               navigation={navigation}
             />
           )}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
         />
       </View>
     </View>

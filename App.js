@@ -7,6 +7,7 @@ import Sesion from './src/screens/Sesion';
 import Navigator from './src/navigation/Navigator';
 import Categoria from './src/screens/Categoria';
 import Info from './src/screens/ProductoInfo';
+import Registro from './src/screens/Registro';
 
 const FuturaFont = {
   FuturaMedium: require('./src/fonts/FuturaLTPaneuropeanMedium.ttf'),
@@ -40,6 +41,7 @@ export default function App() {
         <Stack.Screen name="Navigator" component={Navigator} />
         <Stack.Screen name="Info" component={Info} />
         <Stack.Screen name="Categoria" component={Categoria} />
+        <Stack.Screen name="Registro" component={Registro} />
       </Stack.Navigator>
     </NavigationContainer>
   );

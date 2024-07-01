@@ -54,7 +54,7 @@ class ProductoHandler
                 FROM tb_productos p
                 JOIN tb_categorias c ON p.categoria_id = c.categoria_id
                 JOIN tb_marcas m ON p.marca_id = m.marca_id
-                WHERE producto_estado = 1;';
+                WHERE producto_estado = 1 AND c.categoria_estado = 1;';
         return Database::getRows($sql);
     }
 
