@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Image, StyleSheet} from "react-native";
+import { View, Text, Image, StyleSheet,Alert} from "react-native";
 import fetchData from "../utils/fetchdata";
 import * as constantes from '../utils/constantes';
 import { useNavigation } from "@react-navigation/native";
+import Buttons from '../components/Buttons/Button';
 
 export default function ProductoInfoScreen({ route }) {
   const { idProducto } = route.params;
@@ -35,6 +36,23 @@ export default function ProductoInfoScreen({ route }) {
     }
   };
 
+  
+  const agregarAlCarrito = async () => {
+    try {
+      const FORM = new FormData();
+      FORM.append("idProducto", idProducto);
+      FORM.append("cantidadProducto", 1);
+      const data = await fetchData('pedido', 'createDetail', FORM);
+      if (data.status) {
+        Alert.alert("Agregado al carrito con exito");
+      } else {
+        Alert.alert("Error al agregar productos al carrito");
+      }
+    } catch (error) {
+      Alert.alert("Error al ejecutar la petición: " + error);
+    }
+  };
+
   useEffect(() => {
     getData();
   }, []);
@@ -48,6 +66,7 @@ export default function ProductoInfoScreen({ route }) {
         <Text style={styles.descripcionProducto}>{descripcion}</Text>
         <Text style={styles.precioProducto}>Precio: ${precio}</Text>
         <Text style={styles.cantidadProducto}>Cantidad disponible: {cantidad}</Text>
+        <Buttons textoBoton="Comprar" accionBoton={agregarAlCarrito} />
       </View>
     </View>
   );
