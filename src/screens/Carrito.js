@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Alert, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Alert, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
 import fetchData from '../utils/fetchdata';
 import Buttons from '../components/Buttons/Button';
 
@@ -12,7 +12,6 @@ export default function Carrito({ navigation }) {
       const DATA = await fetchData('pedido', 'readDetail');
       if (DATA.status) {
         setCartItems(DATA.dataset);
-        console.log(cartItems);
       } else {
         Alert.alert('Error', DATA.error);
       }

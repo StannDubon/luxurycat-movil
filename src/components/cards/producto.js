@@ -17,7 +17,7 @@ export default function producto({
       <View style={styles.imageContainer}>
         <Image
           source={{
-            uri: `${ip}/luxurycat/luxurycat-web/API/images/productos/${imagenProducto}`,
+            uri: `${ip}/images/productos/${imagenProducto}`,
           }}
           style={styles.image}
           resizeMode="contain"

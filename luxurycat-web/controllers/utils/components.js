@@ -3,7 +3,7 @@
 *   CONTROLADOR DE USO GENERAL EN TODAS LAS PÁGINAS WEB.
 */
 // Constante para establecer la ruta base del servidor.
-const SERVER_URL = 'http://localhost/luxurycat/luxurycat-web/API/';
+const SERVER_URL = 'http://localhost/luxurycat-movil/luxurycat-web/API/';
 
 /*
 *   Función para mostrar un mensaje de confirmación. 

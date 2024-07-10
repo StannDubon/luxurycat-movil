@@ -140,9 +140,9 @@ if (isset($_GET['action'])) {
                 break;
             case 'getUser':
                 // Obtenemos el nombre de usuario del administrador de la sesión actual
-                if (isset($_SESSION[POST_USUARIO])) {
+                if (isset($_SESSION["admin_id"])) {
                     $result['status'] = 1;
-                    $result['username'] = $_SESSION[POST_USUARIO];
+                    $result['username'] = $_SESSION["admin_usuario"];
                 } else {
                     $result['error'] = 'Usuario de administrador indefinido';
                 }
