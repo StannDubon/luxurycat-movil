@@ -73,6 +73,8 @@ function sendEmail($to, $subject, $body) {
         $mail->setFrom('crystal.gate.sender@gmail.com', 'Mailer');
         $mail->addAddress($to);
 
+        $mail->CharSet = 'UTF-8';
+
         // Contenido del correo
         $mail->isHTML(true);
         $mail->Subject = $subject;

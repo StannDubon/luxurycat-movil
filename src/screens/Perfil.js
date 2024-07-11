@@ -68,6 +68,10 @@ export default function Home({ navigation }) {
     }
   };
 
+  const navigateCambioContra = async () => {
+    navigation.replace("CambioContra")
+  };
+
   useEffect(() => {
     getPerfilData();
   }, []);
@@ -111,7 +115,7 @@ export default function Home({ navigation }) {
 
       <Buttons textoBoton='Editar Usuario' accionBoton={handlerEditarPerfil} />
 
-      <Buttons textoBoton='Cambiar Contraseña'/>
+      <Buttons textoBoton='Cambiar Contraseña' accionBoton={navigateCambioContra} />
 
       <Buttons textoBoton='Cerrar Sesión' accionBoton={handleLogout} />
         

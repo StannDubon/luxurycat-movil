@@ -107,12 +107,14 @@ export default function Sesion({ route }) {
             placeHolder="Nueva Contraseña"
             setValor={npassword}
             setTextChange={setNpassword}
+            contra={true}
           />
 
           <Input
             placeHolder="Confirmar Nueva Contraseña"
             setValor={cnpassword}
             setTextChange={setCNpassword}
+            contra={true}
           />
           <Buttons textoBoton="Siguiente >"  accionBoton={handlerChangePassword} />
         </View>

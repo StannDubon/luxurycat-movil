@@ -12,6 +12,7 @@ import Categoria from './src/screens/Categoria';
 import Info from './src/screens/ProductoInfo';
 
 // Cambio de contraseña
+import CambioContra from './src/screens/CambioContra';
 import CambioContra1 from './src/screens/CambioContra-1';
 import CambioContra2 from './src/screens/CambioContra-2';
 import CambioContra3 from './src/screens/CambioContra-3';
@@ -52,6 +53,7 @@ export default function App() {
         <Stack.Screen name="Info" component={Info} />
         <Stack.Screen name="Categoria" component={Categoria} />
 
+        <Stack.Screen name="CambioContra" component={CambioContra} />
         <Stack.Screen name="CambioContra1" component={CambioContra1} />
         <Stack.Screen name="CambioContra2" component={CambioContra2} />
         <Stack.Screen name="CambioContra3" component={CambioContra3} />

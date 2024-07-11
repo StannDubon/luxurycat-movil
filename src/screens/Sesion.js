@@ -123,7 +123,7 @@ export default function Sesion({ navigation }) {
             placeHolder="Contraseña"
             setValor={contrasenia}
             setTextChange={setContrasenia}
-            contra={isContra}
+            contra={true}
           />
           <TouchableOpacity onPress={navigateCambioContra}>
             <Text style={styles.buttonText}>¿Olvidaste tu contraseña?</Text>
