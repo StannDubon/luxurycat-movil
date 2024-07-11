@@ -56,7 +56,10 @@ export default function Home({ navigation }) {
     try {
       const DATA = await fetchData("cliente", "logOut");
       if (DATA.status) {
-        navigation.navigate('Sesion');
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'Sesion' }],
+        });
       } else {
         Alert.alert('Error', DATA.error);
       }

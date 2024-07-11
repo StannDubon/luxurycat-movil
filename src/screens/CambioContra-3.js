@@ -30,14 +30,15 @@ export default function Sesion({ route }) {
       // Crea un formulario FormData con los datos de usuario y contraseña
       const form = new FormData();
       form.append("token", tokenV);
-      form.append("usuario_nueva_contraseña", codigo);
+      form.append("usuario_nueva_contraseña", npassword);
+      form.append("usuario_confirmar_nueva_contraseña", cnpassword);
       
-      const DATA = await fetchData("cliente", "emailPasswordValidator", form);
+      const DATA = await fetchData("cliente", "changePasswordByEmail", form);
       if (DATA.status) {
         setCodigo("");
         Alert.alert("Exito", "Verificacion Correcta");
         tokenV = DATA.dataset
-        navigation.replace("CambioContra3", { tokenV });
+        navigation.replace("session");
       } else {
         // Muestra una alerta en caso de error
         console.log(DATA);
@@ -88,20 +89,20 @@ export default function Sesion({ route }) {
           />
         </ImageBackground>
         <View
-          style={[styles.mainContainer, keyboardVisible && { marginTop: -30 }]}
-        >
+          style={[styles.mainContainer, keyboardVisible && { marginTop: -30 }]}>
+
           <Text style={styles.LargeText}>Verificación</Text>
 
           <Input
             placeHolder="Nueva Contraseña"
-            setValor={correo}
-            setTextChange={setCorreo}
+            setValor={npassword}
+            setTextChange={setNpassword}
           />
 
           <Input
             placeHolder="Confirmar Nueva Contraseña"
-            setValor={correo}
-            setTextChange={setCorreo}
+            setValor={cnpassword}
+            setTextChange={setCNpassword}
           />
           <Buttons textoBoton="Siguiente >"  accionBoton={handlerChangePassword} />
         </View>

@@ -83,11 +83,5 @@ function sendEmail($to, $subject, $body) {
         echo "El mensaje no se pudo enviar. Mailer Error: {$mail->ErrorInfo}";
     }
 }
-  
-#   CREDENCIALES:
-
-#   crystal.gate.sender@gmail.com
-#   #CrY5t4lG4t3-2024
-#   zgzh ufre emti fglo
 
 ?>
