@@ -20,10 +20,7 @@ export default function Home({ navigation }) {
       const DATA = await fetchData("cliente", "changePassword", form);
       if (DATA.status) {
         Alert.alert("Hecho!", DATA.message);
-        navigation.reset({
-            index: 0,
-            routes: [{ name: 'Home' }],
-          });
+        handleLogout();
       } else {
         console.log(DATA.error);
         Alert.alert("Error", DATA.error);
@@ -32,6 +29,22 @@ export default function Home({ navigation }) {
     } catch (error) {
       console.error(error);
       Alert.alert("Error", "Ocurrió un error al registrar la cuenta");
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      const DATA = await fetchData("cliente", "logOut");
+      if (DATA.status) {
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'Sesion' }],
+        });
+      } else {
+        Alert.alert('Error', DATA.error);
+      }
+    } catch (error) {
+      Alert.alert('Error', 'Ocurrió un error al cerrar la sesión');
     }
   };
 
