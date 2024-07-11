@@ -84,38 +84,46 @@ export default function Carrito({ navigation }) {
   };
 
   const finishOrder = async () => {
-    Alert.alert(
-      'Confirmación',
-      '¿Está seguro de finalizar el pedido?',
-      [
-        {
-          text: 'Cancelar',
-          style: 'cancel',
-        },
-        {
-          text: 'Aceptar',
-          onPress: async () => {
-            try {
-              const FORM = new FormData();
-              FORM.append('direccion', direccion);
-              const DATA = await fetchData('pedido', 'finishOrder', FORM);
-              if (DATA.status) {
-                setDireccion("");
-                Alert.alert('Éxito', DATA.message, [{ text: 'OK', onPress: () => navigation.navigate('Home') }]);
-                setLoading(true);
-                setCartItems([]);
-                fetchCartItems();
-              } else {
-                Alert.alert('Error', DATA.error);
-              }
-            } catch (error) {
-              console.error(error);
-              Alert.alert('Error', 'Ocurrió un error al finalizar el pedido');
-            }
+
+    if (!cartItems.length == 0) {
+      Alert.alert(
+        'Confirmación',
+        '¿Está seguro de finalizar el pedido?',
+        [
+          {
+            text: 'Cancelar',
+            style: 'cancel',
           },
-        },
-      ]
-    );
+          {
+            text: 'Aceptar',
+            onPress: async () => {
+              try {
+                const FORM = new FormData();
+                FORM.append('direccion', direccion);
+                const DATA = await fetchData('pedido', 'finishOrder', FORM);
+  
+                if (DATA.status) {
+                  setDireccion("");
+                  Alert.alert('Éxito', DATA.message, [{ text: 'OK', onPress: () => navigation.navigate('Home') }]);
+                  setLoading(true);
+                  setCartItems([]);
+                  fetchCartItems();
+                } else {
+                  Alert.alert('Error', DATA.error);
+                }
+              } catch (error) {
+                console.error(error);
+                Alert.alert('Error', 'Ocurrió un error al finalizar el pedido');
+              }
+            },
+          },
+        ]
+      );
+    } else {
+      Alert.alert('Error', 'El carrito esta vacío');
+    }
+
+
   };
 
   useEffect(() => {
