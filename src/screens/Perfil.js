@@ -69,7 +69,7 @@ export default function Home({ navigation }) {
   };
 
   const navigateCambioContra = async () => {
-    navigation.replace("CambioContra")
+    navigation.navigate("CambioContra")
   };
 
   useEffect(() => {
