@@ -18,7 +18,10 @@ export default function Carrito({ navigation }) {
         setCartItems(DATA.dataset);
         calculateTotal(DATA.dataset);
       } else {
-        Alert.alert('Error', DATA.error);
+        console.log(DATA.error);
+        if(DATA.error == "No existen productos en el carrito"){
+          setTotal(0);
+        }
       }
     } catch (error) {
       console.error(error);
@@ -68,11 +71,11 @@ export default function Carrito({ navigation }) {
       FORM.append('cantidadProducto', quantity);
       const DATA = await fetchData('pedido', 'updateDetail', FORM);
       if (DATA.status) {
-        Alert.alert('Éxito', DATA.message);
+        console.log(DATA.message);
         setLoading(true);
         fetchCartItems();
       } else {
-        Alert.alert('Error', DATA.error);
+        console.log(DATA.error)
       }
     } catch (error) {
       console.error(error);
@@ -97,6 +100,7 @@ export default function Carrito({ navigation }) {
               FORM.append('direccion', direccion);
               const DATA = await fetchData('pedido', 'finishOrder', FORM);
               if (DATA.status) {
+                setDireccion("");
                 Alert.alert('Éxito', DATA.message, [{ text: 'OK', onPress: () => navigation.navigate('Home') }]);
                 setLoading(true);
                 setCartItems([]);
@@ -136,11 +140,11 @@ export default function Carrito({ navigation }) {
     <View style={styles.itemContainer}>
       <Text style={styles.itemText}>{item.producto_nombre}</Text>
       <View style={styles.quantityContainer}>
-        <TouchableOpacity onPress={() => updateItemQuantity(item.detalle_pedido_id, item.detalle_cantidad - 1)} disabled={item.detalle_cantidad <= 1}>
+        <TouchableOpacity onPress={() => updateItemQuantity(item.detalle_pedido_id, parseInt(item.detalle_cantidad, 10) - 1)} disabled={item.detalle_cantidad <= 1}>
           <Text style={styles.quantityButton}>-</Text>
         </TouchableOpacity>
         <Text style={styles.quantityText}>{item.detalle_cantidad}</Text>
-        <TouchableOpacity onPress={() => updateItemQuantity(item.detalle_pedido_id, item.detalle_cantidad + 1)}>
+        <TouchableOpacity onPress={() => updateItemQuantity(item.detalle_pedido_id, parseInt(item.detalle_cantidad, 10) + 1)}>
           <Text style={styles.quantityButton}>+</Text>
         </TouchableOpacity>
       </View>

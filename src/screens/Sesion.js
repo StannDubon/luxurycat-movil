@@ -88,8 +88,8 @@ export default function Sesion({ navigation }) {
     navigation.replace("Registro")
   };
 
-  const decirhola = async () => {
-    console.log("hola");
+  const navigateCambioContra = async () => {
+    navigation.replace("CambioContra1")
   };
 
   useEffect(() => {
@@ -125,7 +125,7 @@ export default function Sesion({ navigation }) {
             setTextChange={setContrasenia}
             contra={isContra}
           />
-          <TouchableOpacity onPress={decirhola}>
+          <TouchableOpacity onPress={navigateCambioContra}>
             <Text style={styles.buttonText}>¿Olvidaste tu contraseña?</Text>
           </TouchableOpacity>
           <Buttons textoBoton="Iniciar Sesión" accionBoton={handlerLogin} />

@@ -1,5 +1,6 @@
 <?php
 
+require_once('../../helpers/email.php');
 require_once('../../helpers/database.php');
 
 class UsuarioHandler {
@@ -144,5 +145,29 @@ class UsuarioHandler {
         $sql = 'UPDATE tb_usuarios SET usuario_estado = NOT usuario_estado WHERE usuario_id=?';
         $params = array($this->usuario_id);
         return Database::executeRow($sql, $params);
+    }
+
+    // FUNCIONES PARA EL CAMBIO DE CONTRASEÑA POR EMAIL
+
+    public function changePasswordFromEmail()
+    {
+        $sql = 'UPDATE tb_usuarios SET usuario_contraseña = ? WHERE usuario_correo = ?';
+        $params = array($this->usuario_contraseña, $this->usuario_correo);
+        return Database::executeRow($sql, $params);
+    }
+
+    public function verifyExistingEmail()
+    {
+        $sql = 'SELECT COUNT(*) as count
+                FROM tb_usuarios
+                WHERE usuario_correo = ?';
+        $params = array($this->usuario_correo);
+        $result = Database::getRow($sql, $params);
+    
+        if ($result['count'] > 0) {
+            return true; // Hay resultados
+        } else {
+            return false; // No hay resultados
+        }
     }
 }

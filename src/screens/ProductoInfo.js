@@ -4,6 +4,7 @@ import fetchData from "../utils/fetchdata";
 import * as constantes from '../utils/constantes';
 import { useNavigation } from "@react-navigation/native";
 import Buttons from '../components/Buttons/Button';
+import Carrito from "./Carrito";
 
 export default function ProductoInfoScreen({ route }) {
   const { idProducto } = route.params;
@@ -45,6 +46,7 @@ export default function ProductoInfoScreen({ route }) {
       const data = await fetchData('pedido', 'createDetail', FORM);
       if (data.status) {
         Alert.alert("Agregado al carrito con exito");
+        navigation.navigate(Carrito)
       } else {
         Alert.alert("Error al agregar productos al carrito");
       }
