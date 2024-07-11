@@ -35,14 +35,24 @@ export default function Sesion({ route }) {
       
       const DATA = await fetchData("cliente", "changePasswordByEmail", form);
       if (DATA.status) {
-        setCodigo("");
-        Alert.alert("Exito", "Verificacion Correcta");
-        tokenV = DATA.dataset
-        navigation.replace("session");
+        setNpassword("");
+        setCNpassword("");
+        Alert.alert("Exito", "La contraseña se ha cambiado correctamente");
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'Sesion' }],
+          });
       } else {
         // Muestra una alerta en caso de error
         console.log(DATA);
         Alert.alert("Error sesión", DATA.error);
+
+        if(DATA.error=="El tiempo para cambiar su contraseña ha expirado"){
+            navigation.reset({
+                index: 0,
+                routes: [{ name: 'Sesion' }],
+              });
+        }
       }
     } catch (error) {
       // Maneja errores que puedan ocurrir durante la solicitud

@@ -152,7 +152,7 @@ class UsuarioHandler {
     public function changePasswordFromEmail()
     {
         $sql = 'UPDATE tb_usuarios SET usuario_contraseña = ? WHERE usuario_correo = ?';
-        $params = array($this->usuario_contraseña, $this->usuario_correo);
+        $params = array($this->usuario_contraseña, $_SESSION['usuario_correo_vcc']['correo']);
         return Database::executeRow($sql, $params);
     }
 

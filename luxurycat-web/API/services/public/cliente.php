@@ -179,10 +179,16 @@ if (isset($_GET['action'])) {
 
                     $secret_change_password_code = mt_rand(10000000, 99999999);
                     $token = Validator::generateRandomString(64);
+
                     $_SESSION['secret_change_password_code'] = [
                         'code' => $secret_change_password_code,
                         'token' => $token,
                         'expiration_time' => time() + (60 * 15) # (x*y) y=minutos de vida 
+                    ];
+
+                    $_SESSION['usuario_correo_vcc'] = [
+                        'correo' => $_POST[POST_CORREO],
+                        'expiration_time' => time() + (60 * 25) # (x*y) y=minutos de vida 
                     ];
 
                     sendVerificationEmail($_POST[POST_CORREO], $secret_change_password_code);
@@ -225,23 +231,27 @@ if (isset($_GET['action'])) {
                 break;
             case 'changePasswordByEmail':
                 $_POST = Validator::validateForm($_POST);
-                if (!$cliente->setContraseña($_POST[POST_NCONTRASEÑA]) or
-                    !$cliente->setCorreo($_POST[POST_CORREO])) {
+                if (!$cliente->setContraseña($_POST[POST_NCONTRASEÑA])) {
                     $result['error'] = $cliente->getDataError();
                 } elseif (!isset($_POST["token"])) {
                     $result['error'] = 'El token no fue proporcionado';
                 } elseif ($_SESSION['secret_change_password_code_validated']['expiration_time'] <= time()) {
                     $result['error'] = 'El tiempo para cambiar su contraseña ha expirado';
+                    unset($_SESSION['secret_change_password_code_validated']);
                 } elseif ($_SESSION['secret_change_password_code_validated']['token'] != $_POST["token"]) {
                     $result['error'] = 'El token es invalido';
                 } elseif ($_POST[POST_NCONTRASEÑA] != $_POST[POST_CNCONTRASEÑA]) {
                     $result['error'] = 'Confirmación de contraseña diferente';
                 } elseif (!$cliente->setContraseña($_POST[POST_NCONTRASEÑA])) {
                     $result['error'] = $cliente->getDataError();
+                } elseif ($_SESSION['usuario_correo_vcc']['expiration_time'] <= time()) {
+                    $result['error'] = 'El tiempo para cambiar su contraseña ha expirado';
+                    unset($_SESSION['usuario_correo_vcc']);
                 } elseif ($cliente->changePasswordFromEmail()) {
                     $result['status'] = 1;
                     $result['message'] = 'Contraseña cambiada correctamente';
                     unset($_SESSION['secret_change_password_code_validated']);
+                    unset($_SESSION['usuario_correo_vcc']);
                 } else {
                     $result['error'] = 'Ocurrió un problema al cambiar la contraseña';
                 }
