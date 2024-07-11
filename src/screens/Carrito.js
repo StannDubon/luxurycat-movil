@@ -1,15 +1,19 @@
+// Importamos los componentes necesarios de React y React Native, así como algunos componentes personalizados y funciones utilitarias.
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Alert, FlatList, TouchableOpacity, ActivityIndicator, TextInput } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import fetchData from '../utils/fetchdata';
 import Buttons from '../components/Buttons/Button';
 
+// Definimos el componente funcional Carrito que recibe la navegación como prop.
 export default function Carrito({ navigation }) {
+  // Definimos estados locales para manejar los elementos del carrito, carga, dirección y total.
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [direccion, setDireccion] = useState("");
   const [total, setTotal] = useState(0);
 
+  // Función asincrónica para obtener los elementos del carrito desde el servidor.
   const fetchCartItems = async () => {
     try {
       setLoading(true);
@@ -31,6 +35,7 @@ export default function Carrito({ navigation }) {
     }
   };
 
+  // Función para calcular el total basado en los elementos del carrito.
   const calculateTotal = (items) => {
     let totalAmount = 0;
     items.forEach(item => {
@@ -45,6 +50,7 @@ export default function Carrito({ navigation }) {
     setTotal(totalAmount);
   };
 
+  // Función asincrónica para eliminar un elemento del carrito por su ID.
   const removeItem = async (id) => {
     try {
       const FORM = new FormData();
@@ -64,6 +70,7 @@ export default function Carrito({ navigation }) {
     }
   };
 
+  // Función asincrónica para actualizar la cantidad de un elemento del carrito por su ID.
   const updateItemQuantity = async (id, quantity) => {
     try {
       const FORM = new FormData();
@@ -83,8 +90,8 @@ export default function Carrito({ navigation }) {
     }
   };
 
+  // Función asincrónica para finalizar la compra.
   const finishOrder = async () => {
-
     if (!cartItems.length == 0) {
       Alert.alert(
         'Confirmación',
@@ -120,22 +127,23 @@ export default function Carrito({ navigation }) {
         ]
       );
     } else {
-      Alert.alert('Error', 'El carrito esta vacío');
+      Alert.alert('Error', 'El carrito está vacío');
     }
-
-
   };
 
+  // Efecto para cargar los elementos del carrito al montar el componente.
   useEffect(() => {
     fetchCartItems();
   }, []);
 
+  // Efecto para recargar los elementos del carrito cuando el componente está enfocado.
   useFocusEffect(
     React.useCallback(() => {
       fetchCartItems();
     }, [])
   );
 
+  // Renderizamos el indicador de carga si loading es verdadero.
   if (loading) {
     return (
       <View style={styles.loadingContainer}>
@@ -144,6 +152,7 @@ export default function Carrito({ navigation }) {
     );
   }
 
+  // Función para renderizar cada elemento del carrito.
   const renderItem = ({ item }) => (
     <View style={styles.itemContainer}>
       <Text style={styles.itemText}>{item.producto_nombre}</Text>
@@ -162,6 +171,7 @@ export default function Carrito({ navigation }) {
     </View>
   );
 
+  // Renderizamos el componente principal del carrito.
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -190,6 +200,7 @@ export default function Carrito({ navigation }) {
   );
 }
 
+// Estilos del componente.
 const styles = StyleSheet.create({
   container: {
     flex: 1,

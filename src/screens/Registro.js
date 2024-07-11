@@ -26,86 +26,101 @@ export default function Sesion({ navigation }) {
   const [correo, setCorreo] = useState("");
   const [keyboardVisible, setKeyboardVisible] = useState(false);
 
+  // Función para manejar el registro de un nuevo usuario
   const handlerRegistro = async () => {
     try {
-        const form = new FormData();
-        form.append("usuario_nombre", nombre);
-        form.append("usuario_apellido", apellido);
-        form.append("usuario_usuario", usuario);
-        form.append("usuario_contraseña", contrasenia);
-        form.append("usuario_correo", correo);
-        form.append("usuario_estado", 1);
-        form.append("confirmar_contraseña", confirmarContrasenia);
+      // Crear un FormData con los datos del usuario
+      const form = new FormData();
+      form.append("usuario_nombre", nombre);
+      form.append("usuario_apellido", apellido);
+      form.append("usuario_usuario", usuario);
+      form.append("usuario_contraseña", contrasenia);
+      form.append("usuario_correo", correo);
+      form.append("usuario_estado", 1); // Estado por defecto para nuevos registros
+      form.append("confirmar_contraseña", confirmarContrasenia);
 
+      // Llamar a la función fetchData para enviar los datos al servidor
       const DATA = await fetchData("cliente", "signUpMovil", form);
       if (DATA.status) {
-        // Navega a la siguiente pantalla o ruta en la aplicación
+        // Si el registro es exitoso, proceder al inicio de sesión
         await handlerLogin();
       } else {
+        // Mostrar una alerta en caso de error durante el registro
         console.log(DATA.error);
         Alert.alert("Error", DATA.error);
         return;
       }
     } catch (error) {
+      // Capturar y manejar errores durante la solicitud
       console.error(error);
       Alert.alert("Error", "Ocurrió un error al registrar la cuenta");
     }
   };
 
+  // Función para manejar el inicio de sesión
   const handlerLogin = async () => {
     try {
-      // Crea un formulario FormData con los datos de usuario y contraseña
+      // Crear un FormData con los datos de inicio de sesión
       const form = new FormData();
       form.append("usuario_usuario", usuario);
       form.append("usuario_contraseña", contrasenia);
 
-      // Realiza una solicitud para iniciar sesión usando fetchData
+      // Realizar una solicitud para iniciar sesión usando fetchData
       const DATA = await fetchData("cliente", "logIn", form);
-        console.log(DATA)
-      // Verifica la respuesta del servidor
+      // Verificar la respuesta del servidor
       if (DATA.status) {
+        // Mostrar una alerta de bienvenida y limpiar los campos del formulario
         Alert.alert("Bienvenido!", "Cuenta registrada satisfactoriamente");
-        setContrasenia("");
-        setUsuario("");
-        setApellido("");
-        setNombre("");
-        setCorreo("");
-        setConfirmarContrasenia("");  
+        clearFields();
+        // Navegar a la pantalla principal de la aplicación
         navigation.replace("Navigator");
       } else {
-        // Muestra una alerta en caso de error
+        // Mostrar una alerta en caso de error durante el inicio de sesión
         console.log(DATA);
         Alert.alert("Error sesión", DATA.error);
       }
     } catch (error) {
-      // Maneja errores que puedan ocurrir durante la solicitud
+      // Capturar y manejar errores durante la solicitud
       console.error(error, "Error desde Catch");
       Alert.alert("Error", "Ocurrió un error al iniciar sesión");
     }
   };
 
+  // Efecto para detectar si el teclado está visible o no
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
       "keyboardDidShow",
       () => {
-        setKeyboardVisible(true); // o el valor de desplazamiento adecuado
+        setKeyboardVisible(true); // Actualizar estado cuando el teclado se muestra
       }
     );
     const keyboardDidHideListener = Keyboard.addListener(
       "keyboardDidHide",
       () => {
-        setKeyboardVisible(false); // restablecer el valor de desplazamiento
+        setKeyboardVisible(false); // Actualizar estado cuando el teclado se oculta
       }
     );
 
+    // Limpiar los listeners al desmontar el componente para evitar memory leaks
     return () => {
       keyboardDidShowListener.remove();
       keyboardDidHideListener.remove();
     };
   }, []);
 
+  // Función para navegar a la pantalla de inicio de sesión
   const navigateSesion = async () => {
-    navigation.replace("Sesion")
+    navigation.replace("Sesion");
+  };
+
+  // Función para limpiar los campos del formulario
+  const clearFields = () => {
+    setContrasenia("");
+    setUsuario("");
+    setApellido("");
+    setNombre("");
+    setCorreo("");
+    setConfirmarContrasenia("");
   };
 
   return (

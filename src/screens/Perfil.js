@@ -1,15 +1,19 @@
+// Importamos los componentes necesarios de React y React Native, así como algunos componentes personalizados.
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Alert, Image, ImageBackground } from 'react-native';
 import fetchData from "../utils/fetchdata";
 import Buttons from '../components/Buttons/Button';
 import Input from '../components/Inputs/Input';
 
+// Definimos el componente funcional Home que recibe la navegación como prop.
 export default function Home({ navigation }) {
+  // Definimos estados locales para manejar los datos del perfil.
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [usuario, setUsuario] = useState("");
   const [correo, setCorreo] = useState("");
 
+  // Función asincrónica para obtener los datos del perfil del cliente.
   const getPerfilData = async () => {
     try {
       const DATA = await fetchData("cliente", "readProfile");
@@ -26,17 +30,18 @@ export default function Home({ navigation }) {
       }
     } catch (error) {
       console.error(error);
-      Alert.alert("Error", "Ocurrió un error al registrar la cuenta");
+      Alert.alert("Error", "Ocurrió un error al obtener los datos del perfil");
     }
   };
 
+  // Función asincrónica para manejar la edición del perfil del cliente.
   const handlerEditarPerfil = async () => {
     try {
-        const form = new FormData();
-        form.append("usuario_nombre", nombre);
-        form.append("usuario_apellido", apellido);
-        form.append("usuario_usuario", usuario);
-        form.append("usuario_correo", correo);
+      const form = new FormData();
+      form.append("usuario_nombre", nombre);
+      form.append("usuario_apellido", apellido);
+      form.append("usuario_usuario", usuario);
+      form.append("usuario_correo", correo);
 
       const DATA = await fetchData("cliente", "editProfile", form);
       if (DATA.status) {
@@ -48,10 +53,11 @@ export default function Home({ navigation }) {
       }
     } catch (error) {
       console.error(error);
-      Alert.alert("Error", "Ocurrió un error al registrar la cuenta");
+      Alert.alert("Error", "Ocurrió un error al editar el perfil");
     }
   };
 
+  // Función asincrónica para manejar el cierre de sesión del cliente.
   const handleLogout = async () => {
     try {
       const DATA = await fetchData("cliente", "logOut");
@@ -68,14 +74,17 @@ export default function Home({ navigation }) {
     }
   };
 
+  // Función para navegar a la pantalla de cambio de contraseña.
   const navigateCambioContra = async () => {
     navigation.navigate("CambioContra")
   };
 
+  // Efecto para cargar los datos del perfil al montar el componente.
   useEffect(() => {
     getPerfilData();
   }, []);
 
+  // Renderizamos el componente principal de la pantalla de inicio.
   return (
     <View style={styles.container}>
       <>
@@ -90,34 +99,45 @@ export default function Home({ navigation }) {
 
       <View style={styles.mainContainer}>
 
-      <Input
-            placeHolder="Nombre"
-            setValor={nombre}
-            setTextChange={setNombre}
-          />
-          <Input
-            placeHolder="Apellido"
-            setValor={apellido}
-            setTextChange={setApellido}
-          />
-          <Input
-            placeHolder="Usuario"
-            setValor={usuario}
-            setTextChange={setUsuario}
-          />
-          <Input
-            placeHolder="Correo"
-            setValor={correo}
-            setTextChange={setCorreo}
-          />
+        {/* Input para el nombre */}
+        <Input
+          placeHolder="Nombre"
+          setValor={nombre}
+          setTextChange={setNombre}
+        />
+        
+        {/* Input para el apellido */}
+        <Input
+          placeHolder="Apellido"
+          setValor={apellido}
+          setTextChange={setApellido}
+        />
+        
+        {/* Input para el usuario */}
+        <Input
+          placeHolder="Usuario"
+          setValor={usuario}
+          setTextChange={setUsuario}
+        />
+        
+        {/* Input para el correo */}
+        <Input
+          placeHolder="Correo"
+          setValor={correo}
+          setTextChange={setCorreo}
+        />
 
-          <Text></Text>
+        {}
+        <Text></Text>
 
-      <Buttons textoBoton='Editar Usuario' accionBoton={handlerEditarPerfil} />
+        {/* Botón para editar el perfil */}
+        <Buttons textoBoton='Editar Usuario' accionBoton={handlerEditarPerfil} />
 
-      <Buttons textoBoton='Cambiar Contraseña' accionBoton={navigateCambioContra} />
+        {/* Botón para cambiar contraseña */}
+        <Buttons textoBoton='Cambiar Contraseña' accionBoton={navigateCambioContra} />
 
-      <Buttons textoBoton='Cerrar Sesión' accionBoton={handleLogout} />
+        {/* Botón para cerrar sesión */}
+        <Buttons textoBoton='Cerrar Sesión' accionBoton={handleLogout} />
         
       </View>
       </>
@@ -126,6 +146,7 @@ export default function Home({ navigation }) {
   );
 }
 
+// Estilos del componente.
 const styles = StyleSheet.create({
   decorator: {
     justifyContent: 'center',

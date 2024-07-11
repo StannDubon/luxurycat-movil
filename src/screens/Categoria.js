@@ -1,16 +1,22 @@
+// Importamos los componentes necesarios de React y React Native, así como algunos componentes personalizados y constantes.
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Alert , FlatList } from "react-native";
+import { View, Text, StyleSheet, Alert, FlatList } from "react-native";
 import Producto from '../components/cards/producto';
 import * as constantes from '../utils/constantes';
 import fetchData from "../utils/fetchdata";
 import { useNavigation } from "@react-navigation/native";
 
+// Definimos el componente funcional CategoriaScreen que recibe los parámetros de ruta.
 export default function CategoriaScreen({ route }) {
+  // Extraemos el idCategoria de los parámetros de ruta.
   const { idCategoria } = route.params;
-  const [dataProductos, setDataProductos] = useState([])
+  
+  // Definimos estados locales para manejar los datos de productos, nombre de categoría y navegación.
+  const [dataProductos, setDataProductos] = useState([]);
   const [nombre, setNombre] = useState("");
   const navigation = useNavigation();
 
+  // Función asincrónica para obtener la información de la categoría.
   const getData = async () => {
     try {
       const form = new FormData();
@@ -29,6 +35,7 @@ export default function CategoriaScreen({ route }) {
     }
   };
 
+  // Función asincrónica para obtener los productos de la categoría.
   const getProductos = async () => {
     try {
       const form = new FormData();
@@ -46,11 +53,13 @@ export default function CategoriaScreen({ route }) {
     }
   };
 
+  // Efecto para cargar la información de la categoría y los productos al montar el componente.
   useEffect(() => {
     getData();
     getProductos();
   }, []);
 
+  // Renderizamos el componente principal de la pantalla de categoría.
   return (
     <View style={styles.container}>
       <Text style={styles.regresar} onPress={() => {navigation.goBack();}}>{"< Regresar"}</Text>
@@ -76,7 +85,7 @@ export default function CategoriaScreen({ route }) {
   );
 };
 
-
+// Estilos del componente.
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -98,7 +107,6 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 40
   },
-  
   scrollViewContent: {
     flexGrow: 1,
     justifyContent: 'top',

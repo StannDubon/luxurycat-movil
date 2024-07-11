@@ -19,29 +19,32 @@ export default function Sesion({ navigation }) {
   const [usuario, setUsuario] = useState("");
   const [contrasenia, setContrasenia] = useState("");
 
+  // Función para validar la sesión del usuario al cargar el componente
   const validarSesion = async () => {
     try {
+      // Realizar una solicitud para verificar la sesión del usuario
       const DATA = await fetchData("cliente", "getUser");
       if (DATA.session) {
-        // cerrarSesion();
-        // console.log("Se eliminó la sesión");
-
+        // Limpiar los campos de usuario y contraseña si hay una sesión activa
         setContrasenia("");
         setUsuario("");
-        // Navega a la siguiente pantalla o ruta en la aplicación
+        // Navegar a la pantalla principal de la aplicación
         navigation.replace("Navigator");
       } else {
         console.log("No hay sesión activa");
         return;
       }
     } catch (error) {
+      // Capturar y manejar errores durante la solicitud
       console.error(error);
       Alert.alert("Error", "Ocurrió un error al validar la sesión");
     }
   };
 
+  // Función para cerrar la sesión del usuario
   const cerrarSesion = async () => {
     try {
+      // Realizar una solicitud para cerrar sesión
       const DATA = await fetchData("cliente", "logOut");
 
       if (DATA.status) {
@@ -50,48 +53,53 @@ export default function Sesion({ navigation }) {
         console.log("No se pudo eliminar la sesión");
       }
     } catch (error) {
+      // Capturar y manejar errores durante la solicitud
       console.error(error, "Error desde Catch");
       Alert.alert("Error", "Ocurrió un error al iniciar sesión con bryancito");
     }
   };
 
+  // Función para manejar el inicio de sesión
   const handlerLogin = async () => {
     try {
-      // Crea un formulario FormData con los datos de usuario y contraseña
+      // Crear un FormData con los datos de usuario y contraseña
       const form = new FormData();
       form.append("usuario_usuario", usuario);
       form.append("usuario_contraseña", contrasenia);
 
-      // Realiza una solicitud para iniciar sesión usando fetchData
+      // Realizar una solicitud para iniciar sesión usando fetchData
       const DATA = await fetchData("cliente", "logIn", form);
 
-      // Verifica la respuesta del servidor
+      // Verificar la respuesta del servidor
       if (DATA.status) {
-        // Limpia los campos de usuario y contraseña
+        // Limpiar los campos de usuario y contraseña
         setContrasenia("");
         setUsuario("");
-        // Navega a la siguiente pantalla o ruta en la aplicación
+        // Navegar a la pantalla principal de la aplicación
         navigation.replace("Navigator");
       } else {
-        // Muestra una alerta en caso de error
+        // Mostrar una alerta en caso de error durante el inicio de sesión
         console.log(DATA);
         Alert.alert("Error sesión", DATA.error);
       }
     } catch (error) {
-      // Maneja errores que puedan ocurrir durante la solicitud
+      // Manejar errores que puedan ocurrir durante la solicitud
       console.error(error, "Error desde Catch");
       Alert.alert("Error", "Ocurrió un error al iniciar sesión");
     }
   };
 
+  // Función para navegar a la pantalla de registro
   const navigateRegistrar = async () => {
     navigation.replace("Registro")
   };
 
+  // Función para navegar a la pantalla de cambio de contraseña
   const navigateCambioContra = async () => {
     navigation.replace("CambioContra1")
   };
 
+  // Efecto para validar la sesión del usuario al cargar el componente
   useEffect(() => {
     validarSesion();
   }, []);

@@ -1,3 +1,4 @@
+// Importamos los componentes necesarios de React y React Native, así como algunos componentes personalizados y funciones utilitarias.
 import React, { useState, useEffect } from "react";
 import {
   View,
@@ -17,54 +18,62 @@ import Input from "../components/Inputs/Input";
 import Buttons from "../components/Buttons/Button";
 import fetchData from "../utils/fetchdata";
 
+// Definimos el componente funcional Sesion que recibe la navegación como una prop.
 export default function Sesion({ navigation }) {
+  // Definimos estados locales para manejar el correo electrónico y la visibilidad del teclado.
   const [correo, setCorreo] = useState("");
   const [keyboardVisible, setKeyboardVisible] = useState(false);
 
+  // Función asincrónica para manejar el envío del correo electrónico.
   const handlerEmailSender = async () => {
     try {
-      // Crea un formulario FormData con los datos de usuario y contraseña
+      // Creamos un FormData con el correo electrónico del usuario.
       const form = new FormData();
       form.append("usuario_correo", correo);
       
+      // Hacemos una solicitud usando fetchData para enviar el correo electrónico y recibir una respuesta.
       const DATA = await fetchData("cliente", "emailPasswordSender", form);
+      // Si la solicitud es exitosa (DATA.status es verdadero), limpiamos el correo, mostramos una alerta y navegamos a la siguiente pantalla.
       if (DATA.status) {
         setCorreo("");
-        Alert.alert("Exito", "Un codigo de verificación ha sido enviado a su correo electronico");
-        token = DATA.dataset
+        Alert.alert("Éxito", "Un código de verificación ha sido enviado a su correo electrónico");
+        const token = DATA.dataset;
         navigation.replace("CambioContra2", { token });
       } else {
-        // Muestra una alerta en caso de error
+        // En caso de error, mostramos un mensaje de error en una alerta.
         console.log(DATA);
         Alert.alert("Error sesión", DATA.error);
       }
     } catch (error) {
-      // Maneja errores que puedan ocurrir durante la solicitud
+      // Capturamos y manejamos errores que puedan ocurrir durante la solicitud.
       console.error(error, "Error desde Catch");
       Alert.alert("Error", "Ocurrió un error al iniciar sesión");
     }
   };
 
+  // Efecto de useEffect para manejar la visibilidad del teclado.
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
       "keyboardDidShow",
       () => {
-        setKeyboardVisible(true); // o el valor de desplazamiento adecuado
+        setKeyboardVisible(true); // Actualizamos el estado cuando el teclado se muestra.
       }
     );
     const keyboardDidHideListener = Keyboard.addListener(
       "keyboardDidHide",
       () => {
-        setKeyboardVisible(false); // restablecer el valor de desplazamiento
+        setKeyboardVisible(false); // Actualizamos el estado cuando el teclado se oculta.
       }
     );
 
+    // Removemos los listeners al desmontar el componente para evitar memory leaks.
     return () => {
       keyboardDidShowListener.remove();
       keyboardDidHideListener.remove();
     };
   }, []);
 
+  // Renderizamos el componente con KeyboardAvoidingView para manejar el comportamiento del teclado según la plataforma.
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -96,6 +105,7 @@ export default function Sesion({ navigation }) {
   );
 }
 
+// Estilos del componente.
 const styles = StyleSheet.create({
   decorator: {
     height: 300,

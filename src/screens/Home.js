@@ -1,3 +1,4 @@
+// Importamos los componentes necesarios de React y React Native, así como algunos componentes personalizados.
 import React, { useEffect, useState } from "react";
 import {
   View,
@@ -14,10 +15,13 @@ import {
 import fetchData from "../utils/fetchdata";
 import BgButton from "../components/Buttons/BgButton";
 
+// Definimos el componente funcional Sesion que recibe la navegación como prop.
 export default function Sesion({ navigation }) {
+  // Definimos estados locales para manejar los datos de categorías y el estado de refresco.
   const [dataCategorias, setDataCategorias] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
 
+  // Función asincrónica para obtener las categorías con productos.
   const getCategorias = async () => {
     try {
       const DATA = await fetchData("categoria", "readCategoryWithProduct");
@@ -29,10 +33,11 @@ export default function Sesion({ navigation }) {
       }
     } catch (error) {
       console.error(error, "Error desde Catch");
-      Alert.alert("Error", "Ocurrió un error al listar los productos");
+      Alert.alert("Error", "Ocurrió un error al listar las categorías");
     }
   };
 
+  // Función de manejo de refresco, simulando una recarga de datos.
   const onRefresh = () => {
     setRefreshing(true);
     // Simulando una recarga de datos
@@ -42,10 +47,12 @@ export default function Sesion({ navigation }) {
     }, 200); // Tiempo de espera para la recarga
   };
 
+  // Efecto para cargar las categorías al montar el componente.
   useEffect(() => {
     getCategorias();
   }, []);
 
+  // Renderizamos el componente principal de la pantalla de sesión.
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#000000" />
@@ -66,7 +73,7 @@ export default function Sesion({ navigation }) {
         <FlatList
           style={styles.flatlist}
           data={dataCategorias}
-          keyExtractor={(item) => item.categoria_id}
+          keyExtractor={(item) => item.categoria_id.toString()}
           numColumns={2} // Establecer dos columnas
           columnWrapperStyle={styles.flatlistColumnWrapper} // Estilo para el contenedor de columnas
           renderItem={({ item }) => (
@@ -85,6 +92,7 @@ export default function Sesion({ navigation }) {
   );
 }
 
+// Estilos del componente.
 const styles = StyleSheet.create({
   decorator: {
     height: 300,
@@ -98,20 +106,17 @@ const styles = StyleSheet.create({
     left: "50%",
     transform: [{ translateX: -100 }, { translateY: -100 }],
   },
-
   container: {
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
   },
-
   LargeText: {
     fontSize: 25,
     fontFamily: "FuturaMedium",
     marginTop: 30,
     marginBottom: 30,
   },
-
   mainContainer: {
     flex: 1,
     width: "100%",
@@ -125,6 +130,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   flatlistColumnWrapper: {
-      justifyContent: 'space-between',
+    justifyContent: 'space-between',
   },
 });

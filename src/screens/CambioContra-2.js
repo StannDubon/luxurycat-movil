@@ -1,3 +1,4 @@
+// Importamos los componentes necesarios de React y React Native, así como algunos componentes personalizados y funciones utilitarias.
 import React, { useState, useEffect } from "react";
 import {
   View,
@@ -18,58 +19,67 @@ import InputVerification from "../components/Inputs/InputVerification";
 import Buttons from "../components/Buttons/Button";
 import fetchData from "../utils/fetchdata";
 
+// Definimos el componente funcional Sesion que recibe la ruta (route) como prop.
 export default function Sesion({ route }) {
-const { token } = route.params;
+  // Extraemos el token de la ruta recibida como parámetro.
+  const { token } = route.params;
+  // Definimos estados locales para manejar el código de verificación y la visibilidad del teclado.
   const [codigo, setCodigo] = useState("");
   const [keyboardVisible, setKeyboardVisible] = useState(false);
+  // Obtenemos el objeto de navegación usando useNavigation.
   const navigation = useNavigation();
 
+  // Función asincrónica para manejar la verificación del código de verificación.
   const handlerEmailVerification = async () => {
     try {
-      // Crea un formulario FormData con los datos de usuario y contraseña
+      // Creamos un FormData con el token y el código de verificación.
       const form = new FormData();
       form.append("token", token);
       form.append("codigoSecretoContraseña", codigo);
       
+      // Hacemos una solicitud usando fetchData para validar el código de verificación y recibir una respuesta.
       const DATA = await fetchData("cliente", "emailPasswordValidator", form);
+      // Si la solicitud es exitosa (DATA.status es verdadero), limpiamos el código, mostramos una alerta y navegamos a la siguiente pantalla.
       if (DATA.status) {
         setCodigo("");
-        Alert.alert("Exito", "Verificacion Correcta");
-        tokenV = DATA.dataset
+        Alert.alert("Éxito", "Verificación Correcta");
+        const tokenV = DATA.dataset;
         navigation.replace("CambioContra3", { tokenV });
       } else {
-        // Muestra una alerta en caso de error
+        // En caso de error, mostramos un mensaje de error en una alerta.
         console.log(DATA);
         Alert.alert("Error sesión", DATA.error);
       }
     } catch (error) {
-      // Maneja errores que puedan ocurrir durante la solicitud
+      // Capturamos y manejamos errores que puedan ocurrir durante la solicitud.
       console.error(error, "Error desde Catch");
       Alert.alert("Error", "Ocurrió un error al iniciar sesión");
     }
   };
 
-
+  // Efecto de useEffect para manejar la visibilidad del teclado.
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
       "keyboardDidShow",
       () => {
-        setKeyboardVisible(true); // o el valor de desplazamiento adecuado
+        setKeyboardVisible(true); // Actualizamos el estado cuando el teclado se muestra.
       }
     );
     const keyboardDidHideListener = Keyboard.addListener(
       "keyboardDidHide",
       () => {
-        setKeyboardVisible(false); // restablecer el valor de desplazamiento
+        setKeyboardVisible(false); // Actualizamos el estado cuando el teclado se oculta.
       }
     );
 
+    // Removemos los listeners al desmontar el componente para evitar memory leaks.
     return () => {
       keyboardDidShowListener.remove();
       keyboardDidHideListener.remove();
     };
   }, []);
 
+  // Renderizamos el componente con KeyboardAvoidingView para manejar el comportamiento del teclado según la plataforma.
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -101,6 +111,7 @@ const { token } = route.params;
   );
 }
 
+// Estilos del componente.
 const styles = StyleSheet.create({
   decorator: {
     height: 300,

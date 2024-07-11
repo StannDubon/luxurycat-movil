@@ -1,14 +1,17 @@
+// Importamos los componentes necesarios de React y React Native, así como algunos componentes personalizados.
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Alert , FlatList, RefreshControl } from "react-native";
+import { View, Text, StyleSheet, Alert, FlatList, RefreshControl } from "react-native";
 import ProductoCard from '../components/cards/producto';
 import * as constantes from '../utils/constantes';
 import fetchData from "../utils/fetchdata";
 
+// Definimos el componente funcional Home que recibe la navegación como parámetro.
 export default function Home({ navigation }) {
 
   const [dataProductos, setDataProductos] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
 
+  // Función para manejar el evento de refrescar la lista de productos.
   const onRefresh = () => {
     setRefreshing(true);
     // Simulando una recarga de datos
@@ -18,6 +21,7 @@ export default function Home({ navigation }) {
     }, 200); // Tiempo de espera para la recarga
   };
 
+  // Función asincrónica para obtener todos los productos.
   const getProductos = async () => {
     try {
       const DATA = await fetchData("producto", "readAll");
@@ -33,11 +37,13 @@ export default function Home({ navigation }) {
     }
   }
 
+  // Efecto para cargar los productos al montar el componente.
   useEffect(() => {
     getProductos();
   }, []);
 
 
+  // Renderizamos el componente principal de la pantalla de inicio.
   return (
     <View style={styles.container}>
       <Text style={styles.MainText}>Todos Nuestros Productos</Text>
@@ -63,9 +69,10 @@ export default function Home({ navigation }) {
       />
     </View>
   );
-  
+
 }
 
+// Estilos del componente.
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -79,7 +86,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
     marginBottom: 40
   },
-  
+
   scrollViewContent: {
     flexGrow: 1,
     justifyContent: 'top',
