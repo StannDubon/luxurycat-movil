@@ -25,6 +25,8 @@
             </form>
             <div class="col-md-2 col-sm-12">
                 <button class="btn btn-dark w-100" onclick="openCreate()">Agregar</button>
+            </div><div class="col-md-2 col-sm-12">
+                <button class="btn btn-dark w-100" onclick="openReport()">Reporte</button>
             </div>
         </div>
 
@@ -48,6 +50,20 @@
             </table>
         </div>
     </main>
+
+    <div class="modal fade" id="Graficos" tabindex="-1" 
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width: 70%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Graficos de productos</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+        
+        </div>
+    </div>
+</div>
 
                     <!-- Modal -->
                     <div class="modal fade" id="saveModal" tabindex="-1" 
