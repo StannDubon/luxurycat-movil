@@ -139,6 +139,20 @@ class PedidoHandler
         return Database::getRows($sql, $params);
     }
 
+    
+    // Método para obtener los productos que se encuentran en el carrito de compras.
+    public function readDetailInvoice()
+    {
+        $sql = 'SELECT detalle_pedido_id, producto_nombre, detalle_precio, detalle_cantidad
+                FROM tb_detalles_pedidos    
+                INNER JOIN tb_pedidos USING(pedido_id)
+                INNER JOIN tb_productos USING(producto_id)
+                WHERE pedido_id = (SELECT pedido_id FROM tb_pedidos WHERE usuario_id = ? AND pedido_estado = "Finalizado"
+                ORDER BY pedido_id DESC LIMIT 1);';
+        $params = array($_SESSION['usuario_id']);
+        return Database::getRows($sql, $params);
+    }
+
     // Método para finalizar un pedido por parte del cliente.
     public function finishOrder()
     {

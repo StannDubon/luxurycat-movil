@@ -129,6 +129,10 @@ async function finishOrder() {
         const DATA = await fetchData(PEDIDO_API, 'finishOrder', FORM);
         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
         if (DATA.status) {
+            // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
+            const PATH = new URL(`${SERVER_URL}reports/public/Factura.php`);
+            // Se abre el reporte en una nueva pestaña.
+            window.open(PATH.href);
             sweetAlert(1, DATA.message, true, 'index.html');
         } else {
             sweetAlert(2, DATA.error, false);
