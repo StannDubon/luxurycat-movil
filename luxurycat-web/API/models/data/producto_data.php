@@ -174,4 +174,41 @@ class ProductoData extends ProductoHandler
     {
         return $this->filename;
     }
-}
+
+    //Metodos de graficos
+    public function cantidadProductosCategoria()
+    {
+        $sql = 'SELECT categoria_nombre, COUNT(producto_id) cantidad
+                FROM tb_productos
+                INNER JOIN tb_categorias USING(categoria_id)
+                GROUP BY categoria_nombre ORDER BY cantidad DESC LIMIT 5';
+        return Database::getRows($sql);
+    }
+
+    public function porcentajeProductosCategoria()
+    {
+        $sql = 'SELECT categoria_nombre, ROUND((COUNT(producto_id) * 100.0 / (SELECT COUNT(producto_id) FROM tb_productos)), 2) porcentaje
+                FROM tb_productos
+                INNER JOIN tb_categorias USING(categoria_id)
+                GROUP BY categoria_nombre ORDER BY porcentaje DESC';
+        return Database::getRows($sql);
+    }
+    public function cantidadProductosMarca()
+    {
+        $sql = 'SELECT marca_nombre, COUNT(producto_id) cantidad
+                FROM tb_productos
+                INNER JOIN tb_marcas USING(marca_id)
+                GROUP BY marca_nombre ORDER BY cantidad DESC LIMIT 5';
+        return Database::getRows($sql);
+    }
+
+    public function porcentajeProductosMarca()
+    {
+        $sql = 'SELECT marca_nombre, ROUND((COUNT(producto_id) * 100.0 / (SELECT COUNT(producto_id) FROM tb_productos)), 2) porcentaje
+                FROM tb_productos
+                INNER JOIN tb_marcas USING(marca_id)
+                GROUP BY marca_nombre ORDER BY porcentaje DESC';
+        return Database::getRows($sql);
+    }
+
+ }

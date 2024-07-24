@@ -124,6 +124,34 @@ if (isset($_GET['action'])) {
                         $result['error'] = 'Ocurrió un problema al cambiar la categoría';
                     }
                     break;
+                    case 'cantidadProductosCategoria':
+                        if ($result['dataset'] = $producto->cantidadProductosCategoria()) {
+                            $result['status'] = 1;
+                        } else {
+                            $result['error'] = 'No hay datos disponibles';
+                        }
+                        break;
+                        case 'porcentajeProductosCategoria':
+                        if ($result['dataset'] = $producto->porcentajeProductosCategoria()) {
+                            $result['status'] = 1;
+                        } else {
+                            $result['error'] = 'No hay datos disponibles';
+                        }
+                        break; 
+                        case 'cantidadProductosMarca':
+                            if ($result['dataset'] = $producto->cantidadProductosMarca()) {
+                                $result['status'] = 1;
+                            } else {
+                                $result['error'] = 'No hay datos disponibles';
+                            }
+                        break;
+                        case 'porcentajeProductosMarca':
+                            if ($result['dataset'] = $producto->porcentajeProductosMarca()) {
+                                $result['status'] = 1;
+                            } else {
+                                $result['error'] = 'No hay datos disponibles';
+                            }
+                        break;      
             default:
                 $result['error'] = 'Acción no disponible dentro de la sesión';
         }
