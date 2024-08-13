@@ -4,12 +4,12 @@ import fetchData from '../utils/fetchdata';
 import { Card } from 'react-native-paper';
 
 
-// Definimos el componente funcional Home.
+// Componente principal que muestra el historial de pedidos
 export default function Home({ navigation }) {
   const [pedidos, setPedidos] = useState([]);
-  const [productos, setProductos] = useState([]); // Estado para guardar los productos del pedido
+  const [productos, setProductos] = useState([]); // Estado para almacenar los productos de cada pedido
 
-  // Función para obtener el historial del cliente.
+  // Función para obtener el historial de pedidos del cliente
   const fetchHistorialData = async () => {
     try {
       const historialResponse = await fetchData('pedido', 'getHistory');
@@ -18,10 +18,10 @@ export default function Home({ navigation }) {
       if (historialResponse && historialResponse.status === 1 && historialResponse.dataset) {
         setPedidos(historialResponse.dataset);
 
-        // Imprimir el id_pedido de cada pedido en el historial
+        // Extrae y almacena los IDs de cada pedido en el historial
         const pedidoIds = historialResponse.dataset.map(pedido => pedido.pedido_id);
 
-        // Fetch productos para todos los pedidos
+        // Obtiene los productos de cada pedido utilizando los IDs
         const productosPromises = pedidoIds.map(async (idPedido) => {
           try {
             const form = new FormData();
@@ -30,7 +30,7 @@ export default function Home({ navigation }) {
             console.log('Productos del pedido:', DATA);
 
             if (DATA.status) {
-              // Aquí puedes actualizar el estado de productos
+              // Actualiza el estado de los productos para el pedido específico
               return {
                 pedidoId: idPedido,
                 productos: DATA.dataset || [] // Asegúrate de que sea una lista
@@ -47,11 +47,11 @@ export default function Home({ navigation }) {
           }
         });
 
-        // Espera a que todas las promesas se resuelvan
+        // Espera a que todas las promesas se resuelvan y actualiza el estado
         const productosData = await Promise.all(productosPromises);
         setProductos(productosData.filter(data => data !== null)); // Filtra los resultados nulos
       } else {
-        setPedidos([]); // Asegúrate de limpiar el estado si no se encuentran datos
+        setPedidos([]); // Limpia el estado si no se encuentran datos
         console.log('No se encontraron datos de historial de compras');
       }
     } catch (error) {
@@ -64,7 +64,7 @@ export default function Home({ navigation }) {
     fetchHistorialData();
   }, []);
 
-  // Renderiza una fila del FlatList.
+  // Renderiza un pedido individual en el FlatList
   const renderPedido = ({ item }) => (
     <Card style={styles.card}>
       <Card.Title title={`Pedido #${item.pedido_id}`} />
@@ -80,10 +80,10 @@ export default function Home({ navigation }) {
           <Text style={[styles.texts, styles.tableColumn]}>Subtotal</Text>
         </View>
 
-        {/* Aquí se mostrarán los detalles del pedido */}
+        {/* Muestra los detalles de los productos en el pedido */}
         {productos.map((productoData) => (
           productoData.pedidoId === item.pedido_id && productoData.productos.map((producto, index) => {
-            // Convertir el precio y el subtotal a números
+            // Calcula el precio y subtotal para cada producto
             const precio = parseFloat(producto.detalle_precio) || 0;
             const cantidad = producto.detalle_cantidad || 0;
             const subtotal = precio * cantidad;
@@ -110,7 +110,7 @@ export default function Home({ navigation }) {
     </Card>
   );
 
-  // Renderizamos el componente.
+  // Renderiza el componente principal que contiene el historial de pedidos
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -132,7 +132,7 @@ export default function Home({ navigation }) {
   );
 }
 
-// Estilos del componente.
+// Estilos del componente
 const styles = StyleSheet.create({
   decorator: {
     justifyContent: 'center',
