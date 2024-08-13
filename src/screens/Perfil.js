@@ -79,6 +79,11 @@ export default function Home({ navigation }) {
     navigation.navigate("CambioContra")
   };
 
+  // Función para navegar a la pantalla de cambio de contraseña.
+  const navigateHistorial = async () => {
+    navigation.navigate("Historial")
+  };
+
   // Efecto para cargar los datos del perfil al montar el componente.
   useEffect(() => {
     getPerfilData();
@@ -135,6 +140,9 @@ export default function Home({ navigation }) {
 
         {/* Botón para cambiar contraseña */}
         <Buttons textoBoton='Cambiar Contraseña' accionBoton={navigateCambioContra} />
+
+        {/* Botón para cambiar Historial */}
+        <Buttons textoBoton='Historial' accionBoton={navigateHistorial} />
 
         {/* Botón para cerrar sesión */}
         <Buttons textoBoton='Cerrar Sesión' accionBoton={handleLogout} />

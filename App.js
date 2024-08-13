@@ -17,6 +17,9 @@ import CambioContra1 from './src/screens/CambioContra-1';
 import CambioContra2 from './src/screens/CambioContra-2';
 import CambioContra3 from './src/screens/CambioContra-3';
 
+// Pantalla de historial
+import Historial from './src/screens/Historial';
+
 //Importacion de fuente
 const FuturaFont = {
   FuturaMedium: require('./src/fonts/FuturaLTPaneuropeanMedium.ttf'),
@@ -52,6 +55,8 @@ export default function App() {
         
         <Stack.Screen name="Info" component={Info} />
         <Stack.Screen name="Categoria" component={Categoria} />
+
+        <Stack.Screen name="Historial" component={Historial} />
 
         <Stack.Screen name="CambioContra" component={CambioContra} />
         <Stack.Screen name="CambioContra1" component={CambioContra1} />
