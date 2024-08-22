@@ -1,1 +1,1 @@
-export const IP = 'https://luxurycat.site/luxurycat-web/API'
+export const IP = 'http://192.168.56.1/luxurycat-movil/luxurycat-web/API'

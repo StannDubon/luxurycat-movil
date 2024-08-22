@@ -68,7 +68,7 @@ export default function Sesion({ navigation }) {
       </ImageBackground>
 
       <View style={styles.mainContainer}>
-        <Text style={styles.LargeText}>Nuestras Categorias</Text>
+        <Text style={styles.LargeText}>Nuestras Categorías</Text>
 
         <FlatList
           style={styles.flatlist}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, ImageBackground, FlatList, Alert } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, FlatList, Alert, ScrollView  } from 'react-native';
 import fetchData from '../utils/fetchdata';
 import { Card } from 'react-native-paper';
 
@@ -112,7 +112,7 @@ export default function Home({ navigation }) {
 
   // Renderiza el componente principal que contiene el historial de pedidos
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.scrollViewContainer}>
       <ImageBackground
         source={require("../../src/img/wallpaper2.png")}
         style={styles.decorator}
@@ -122,18 +122,23 @@ export default function Home({ navigation }) {
         </View>
       </ImageBackground>
 
-      <FlatList
-        data={pedidos}
-        renderItem={renderPedido}
-        keyExtractor={item => item.pedido_id.toString()}
-        contentContainerStyle={styles.mainContainer}
-      />
-    </View>
+      <View style={styles.flatListContainer}>
+        <FlatList
+          data={pedidos}
+          renderItem={renderPedido}
+          keyExtractor={item => item.pedido_id.toString()}
+          contentContainerStyle={styles.mainContainer}
+        />
+      </View>
+    </ScrollView>
   );
 }
 
 // Estilos del componente
 const styles = StyleSheet.create({
+  scrollViewContainer: {
+    flexGrow: 1,
+  },
   decorator: {
     justifyContent: 'center',
     alignItems: 'center',
@@ -154,6 +159,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f5f5f5',
     alignItems: 'center'
+  },
+  flatListContainer: {
+    flex: 1, // Permite que el FlatList ocupe el espacio restante
   },
   mainContainer: {
     flex: 1,
